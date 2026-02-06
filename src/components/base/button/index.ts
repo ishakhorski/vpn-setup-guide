@@ -1,17 +1,17 @@
 import { cva, type VariantProps } from "class-variance-authority";
 
 export const baseButtonVariation = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+  "inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap text-sm font-medium rounded-md outline-none transition-all focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
   {
     variants: {
       variant: {
-        primary: "bg-primary text-primary-foreground hover:bg-primary/90",
-        secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+        primary: "text-primary-foreground bg-primary hover:bg-primary/90",
+        secondary: "text-secondary-foreground bg-secondary hover:bg-secondary/80",
       },
       size: {
-        small: "h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5",
-        medium: "h-9 rounded-md px-4 py-2 has-[>svg]:px-3",
-        large: "h-10 rounded-md px-6 has-[>svg]:px-4",
+        small: "h-8 gap-1.5 px-3 rounded-md has-[>svg]:px-2.5",
+        medium: "h-9 px-4 py-2 rounded-md has-[>svg]:px-3",
+        large: "h-10 px-6 rounded-md has-[>svg]:px-4",
       },
     },
     defaultVariants: {

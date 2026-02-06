@@ -4,16 +4,17 @@ export type BaseSwitchVariant = "primary";
 export type BaseSwitchSize = "small" | "medium" | "large";
 
 export const baseSwitchRootVariation = cva(
-  "peer data-[state=checked]:bg-primary data-[state=unchecked]:bg-input focus-visible:border-ring focus-visible:ring-ring/50 dark:data-[state=unchecked]:bg-input/80 inline-flex h-[1.15rem] w-8 shrink-0 items-center rounded-full border border-transparent shadow-sm transition-all outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50",
+  "peer inline-flex shrink-0 items-center border border-transparent rounded-full outline-none shadow-xs transition-all focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50",
   {
     variants: {
       variant: {
-        primary: "",
+        primary:
+          "focus-visible:border-ring focus-visible:ring-ring/50 data-[state=checked]:bg-primary data-[state=unchecked]:bg-input dark:data-[state=unchecked]:bg-input/80",
       },
       size: {
-        small: "h-4 w-7",
+        small: "h-4 w-8",
         medium: "h-5 w-9",
-        large: "h-6 w-11",
+        large: "h-6 w-10",
       },
     },
     defaultVariants: {
@@ -25,11 +26,12 @@ export const baseSwitchRootVariation = cva(
 export type BaseSwitchRootVariation = VariantProps<typeof baseSwitchRootVariation>;
 
 export const baseSwitchThumbVariation = cva(
-  "bg-background dark:data-[state=unchecked]:bg-foreground dark:data-[state=checked]:bg-primary-foreground pointer-events-none inline-flex items-center justify-center size-4 rounded-full ring-0 transition-transform data-[state=checked]:translate-x-[calc(100%-2px)] data-[state=unchecked]:translate-x-0",
+  "pointer-events-none inline-flex items-center justify-center rounded-full ring-0 transition-transform data-[state=checked]:translate-x-[calc(100%-2px)] data-[state=unchecked]:translate-x-0",
   {
     variants: {
       variant: {
-        primary: "",
+        primary:
+          "text-foreground bg-background dark:text-background dark:data-[state=checked]:bg-primary-foreground dark:data-[state=unchecked]:bg-foreground",
       },
       size: {
         small: "size-3",

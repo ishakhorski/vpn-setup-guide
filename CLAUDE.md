@@ -22,6 +22,7 @@ Vue 3 + Vite + TypeScript application for VPN setup guides.
 - **Routing**: Vue Router (HTML5 history mode) with lazy-loaded views (`/` -> HomeView, `/guide` -> GuideView, `/frequently-asked-questions` -> FaqView)
 - **Styling**: Tailwind CSS v4 via `@tailwindcss/vite` plugin
 - **Markdown**: `.md` files can be imported as Vue components via `unplugin-vue-markdown`
+- **SVG**: `.svg` files are imported as Vue components via `vite-svg-loader` (e.g., `import Icon from '@/components/icons/icon.svg'`)
 - **Path alias**: `@/` maps to `src/`
 - **Node requirement**: ^20.19.0 || >=22.12.0
 
@@ -37,7 +38,7 @@ The switch components use Vue `provide/inject` for parent-child context (BaseSwi
 
 ### Dark mode
 
-Custom Tailwind v4 variant and CSS custom properties are defined in `src/assets/theme.css`. Supports both explicit `data-theme="dark"` on `<body>` and `prefers-color-scheme` system preference fallback. Theme state is managed by the `useTheme` composable (`src/composables/useTheme.ts`) which persists to localStorage.
+Custom Tailwind v4 variant and CSS custom properties are defined in `src/assets/theme.css`. Dark mode is activated by adding a `.dark` class to `<body>`, with `prefers-color-scheme` system preference fallback. Theme state is managed by the `useTheme` composable (`src/composables/useTheme.ts`) which persists to localStorage.
 
 ## Linting Setup
 

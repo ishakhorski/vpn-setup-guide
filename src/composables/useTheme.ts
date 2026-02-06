@@ -1,50 +1,26 @@
-import { ref, watch, onMounted, onUnmounted } from "vue";
+import { watch } from "vue";
+import { useLocalStorage } from "@vueuse/core";
 
-export const THEME = {
-  LIGHT: "light",
-  DARK: "dark",
-};
-export type Theme = (typeof THEME)[keyof typeof THEME];
-
-const getSystemTheme = (): Theme => {
-  if (typeof window === "undefined") return THEME.LIGHT;
-  return window.matchMedia("(prefers-color-scheme: dark)").matches ? THEME.DARK : THEME.LIGHT;
+const getSystemDark = () => {
+  if (typeof window === "undefined") return false;
+  return window.matchMedia("(prefers-color-scheme: dark)").matches;
 };
 
-const applyTheme = (selectedTheme: Theme) => {
+const isDark = useLocalStorage<boolean>("dark-mode", getSystemDark());
+
+const applyTheme = (dark: boolean) => {
   if (typeof document === "undefined") return;
-  document.body.dataset.theme = selectedTheme;
+  document.body.classList.toggle("dark", dark);
 };
-
-const theme = ref<Theme>(getSystemTheme());
 
 export function useTheme() {
-  const setTheme = (newTheme: Theme) => {
-    theme.value = newTheme;
-    applyTheme(newTheme);
-  };
+  watch(
+    isDark,
+    (dark) => {
+      applyTheme(dark);
+    },
+    { immediate: true },
+  );
 
-  const handleSystemChange = (event: MediaQueryListEvent) => {
-    theme.value = event.matches ? THEME.DARK : THEME.LIGHT;
-  };
-
-  let mediaQuery: MediaQueryList | null = null;
-
-  onMounted(() => {
-    mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-    mediaQuery.addEventListener("change", handleSystemChange);
-  });
-
-  onUnmounted(() => {
-    mediaQuery?.removeEventListener("change", handleSystemChange);
-  });
-
-  watch(theme, (newTheme) => {
-    applyTheme(newTheme);
-  });
-
-  return {
-    theme,
-    setTheme,
-  };
+  return { isDark };
 }

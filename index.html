@@ -25,6 +25,16 @@
         <link rel="manifest" href="/site.webmanifest" />
     </head>
     <body>
+        <script>
+            var s = localStorage.getItem("dark-mode");
+            if (
+                s === "true" ||
+                (s === null &&
+                    matchMedia("(prefers-color-scheme: dark)").matches)
+            ) {
+                document.body.classList.add("dark");
+            }
+        </script>
         <div id="app"></div>
         <script type="module" src="/src/main.ts"></script>
     </body>
