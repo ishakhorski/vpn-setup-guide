@@ -196,8 +196,13 @@ onMounted(async () => {
                 "
                 leave-from-class="translate-x-0 opacity-100"
               >
-                <div :key="currentStep" class="prose">
-                  <component :is="activeStep?.component" />
+                <div :key="currentStep" class="flex gap-4">
+                  <div class="prose">
+                    <component :is="activeStep?.component" />
+                  </div>
+                  <div>
+                    <img v-if="activeStep?.image" :src="activeStep.image" alt="Step Image" />
+                  </div>
                 </div>
               </Transition>
             </div>

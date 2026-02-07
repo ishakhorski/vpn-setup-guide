@@ -20,7 +20,9 @@ order: 8
 3. Верните обратно `Direct` в этом списке
 4. Нажмите `Apply changes`
 
-<img src="../images/SwitchyOmega1.png" alt="Настройка правил SwitchyOmega" style="max-height: 300px;" />
+<div class="w-full flex justify-center">
+    <img src="../images/SwitchyOmega1.png" alt="Настройка правил SwitchyOmega" style="max-height: 300px;" />
+</div>
 
 ### Режимы использования
 

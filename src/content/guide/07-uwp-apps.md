@@ -19,7 +19,9 @@ order: 7
 3. Найдите в списке `Usermode Front Driver Host` и снимите с него галочку (если такого пункта нет — отлично)
 4. Нажмите `Save Changes`
 
-<img src="../images/win10loopback.png" alt="Настройка Win10 UWP Loopback" style="max-height: 400px;" />
+<div class="w-full flex justify-center">
+    <img src="../images/win10loopback.png" alt="Настройка Win10 UWP Loopback" style="max-height: 400px;" />
+</div>
 
 Теперь UWP-приложения работают.
 

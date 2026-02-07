@@ -32,7 +32,9 @@ order: 5
 
 На главном экране v2rayN выберите нужное правило в списке снизу.
 
-<img src="../images/ruleList1.png" alt="Список правил на главном экране приложения" style="max-height: 300px;" />
+<div class="w-full flex justify-center">
+    <img src="../images/ruleList1.png" alt="Список правил на главном экране приложения" style="max-height: 300px;" />
+</div>
 
 <div class="warning">
 
