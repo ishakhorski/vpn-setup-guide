@@ -39,7 +39,7 @@ export const baseStepperItemVariation = cva(
 export type BaseStepperItemVariation = VariantProps<typeof baseStepperItemVariation>
 
 export const baseStepperIndicatorVariation = cva(
-  'inline-flex items-center justify-center rounded-full text-muted-foreground/50 group-data-[disabled]:text-muted-foreground group-data-[disabled]:opacity-50',
+  'inline-flex items-center justify-center rounded-full text-muted-foreground/60 group-data-[disabled]:text-muted-foreground group-data-[disabled]:opacity-50',
   {
     variants: {
       variant: {
@@ -81,9 +81,9 @@ export const baseStepperTitleVariation = cva('font-semibold', {
       default: '',
     },
     size: {
-      small: 'text-sm',
-      medium: 'text-base',
-      large: 'text-lg',
+      small: 'text-xs',
+      medium: 'text-sm',
+      large: 'text-base',
     },
   },
   defaultVariants: {

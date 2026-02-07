@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useTheme } from "@/composables/useTheme";
-import ThemeSwitch from "@/components/ThemeSwitch.vue";
+import { useTheme } from '@/composables/useTheme'
+import ThemeSwitch from '@/components/ThemeSwitch.vue'
 
-const { isDark } = useTheme();
+const { isDark } = useTheme()
 </script>
 
 <template>
@@ -24,7 +24,7 @@ const { isDark } = useTheme();
 
     <header class="glass sticky top-0 z-50">
       <div
-        class="container mx-auto flex items-center justify-between px-6 py-3 md:px-10 md:py-4 lg:px-12 lg:py-5"
+        class="container mx-auto flex items-center justify-between px-6 py-2.5 md:px-10 md:py-3.5 lg:px-12 lg:py-4"
       >
         <RouterLink
           to="/"

@@ -1,37 +1,26 @@
 <script setup lang="ts">
-import type { Component } from "vue";
+import type { Component } from 'vue'
 
 import {
   BaseAccordion,
   BaseAccordionItem,
   BaseAccordionTrigger,
   BaseAccordionContent,
-} from "@/components/base/accordion";
+} from '@/components/base/accordion'
+import { useMarkdownContent } from '@/composables/useMarkdownContent'
 
-interface FaqModule {
-  default: Component;
-  title: string;
-  order: number;
-}
-
-const modules = import.meta.glob<FaqModule>("@/content/faq/*.md", {
-  eager: true,
-});
-
-const faqs = Object.values(modules)
-  .map((mod) => ({
-    title: mod.title,
-    order: mod.order,
-    component: mod.default,
-  }))
-  .sort((a, b) => a.order - b.order);
+const faqs = useMarkdownContent(
+  import.meta.glob<{ default: Component; title: string; order: number }>('@/content/faq/*.md', {
+    eager: true,
+  }),
+)
 </script>
 
 <template>
-  <div class="flex w-full flex-1 flex-col items-center gap-5 py-3 md:gap-8 md:py-6">
+  <div class="flex w-full flex-1 flex-col items-center gap-5 py-3 md:gap-8">
     <div class="text-center">
-      <h2 class="text-2xl font-bold tracking-tight md:text-4xl">Часто задаваемые вопросы</h2>
-      <p class="mt-1 text-sm text-muted-foreground md:mt-2 md:text-lg">
+      <h2 class="text-xl font-bold tracking-tight md:text-3xl">Часто задаваемые вопросы</h2>
+      <p class="mt-1 text-sm text-muted-foreground md:mt-2 md:text-base">
         Ответы на популярные вопросы о VPN
       </p>
     </div>

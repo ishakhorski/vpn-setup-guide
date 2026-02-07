@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { computed, nextTick, onMounted, ref, watch, type Component } from "vue";
-import { useRouteQuery } from "@vueuse/router";
+import { computed, nextTick, onMounted, ref, watch, type Component } from 'vue'
+import { useRouteQuery } from '@vueuse/router'
 
-import { BaseButton } from "@/components/base/button";
+import { BaseButton } from '@/components/base/button'
 import {
   BaseStepper,
   BaseStepperItem,
@@ -10,76 +10,82 @@ import {
   BaseStepperIndicator,
   BaseStepperTitle,
   BaseStepperSeparator,
-} from "@/components/base/stepper";
+} from '@/components/base/stepper'
+import { useMarkdownContent } from '@/composables/useMarkdownContent'
 
-import IconCheck from "@/components/icons/check.svg";
-import IconArrowRight from "@/components/icons/arrow-right.svg";
+import IconCheck from '@/components/icons/check.svg'
+import IconArrowRight from '@/components/icons/arrow-right.svg'
 
-interface GuideModule {
-  default: Component;
-  title: string;
-  description: string;
-  order: number;
-}
+const steps = useMarkdownContent(
+  import.meta.glob<{
+    default: Component
+    title: string
+    description: string
+    order: number
+  }>('@/content/guide/*.md', { eager: true }),
+)
 
-const modules = import.meta.glob<GuideModule>("@/content/guide/*.md", {
-  eager: true,
-});
+const currentStep = useRouteQuery('step', '1', { transform: Number, mode: 'replace' })
+const totalSteps = steps.length
+const isFirstStep = computed(() => currentStep.value === 1)
+const isLastStep = computed(() => currentStep.value === totalSteps)
+const isDone = computed(() => currentStep.value > totalSteps)
+const activeStep = computed(() => steps[currentStep.value - 1])
+const progress = computed(() => (isDone.value ? 100 : ((currentStep.value - 1) / totalSteps) * 100))
 
-const steps = Object.values(modules)
-  .map((mod) => ({
-    title: mod.title,
-    description: mod.description,
-    order: mod.order,
-    component: mod.default,
-  }))
-  .sort((a, b) => a.order - b.order);
-
-const currentStep = useRouteQuery("step", "1", { transform: Number, mode: "replace" });
-const totalSteps = steps.length;
-const isFirstStep = computed(() => currentStep.value === 1);
-const isLastStep = computed(() => currentStep.value === totalSteps);
-const isDone = computed(() => currentStep.value > totalSteps);
-const activeStep = computed(() => steps[currentStep.value - 1]);
-const progress = computed(() =>
-  isDone.value ? 100 : ((currentStep.value - 1) / totalSteps) * 100,
-);
+const slideForward = ref(true)
 
 function nextStep() {
-  if (currentStep.value <= totalSteps) currentStep.value++;
+  if (currentStep.value <= totalSteps) {
+    slideForward.value = true
+    currentStep.value++
+  }
 }
 
 function prevStep() {
-  if (currentStep.value > 1) currentStep.value--;
+  if (currentStep.value > 1) {
+    slideForward.value = false
+    currentStep.value--
+  }
 }
 
-const stepperScrollRef = ref<HTMLElement | null>(null);
+watch(currentStep, (newVal, oldVal) => {
+  slideForward.value = newVal > oldVal
+})
+
+const stepperScrollRef = ref<HTMLElement | null>(null)
 
 function scrollToActiveStep(smooth = true) {
-  const container = stepperScrollRef.value;
-  if (!container) return;
-  const activeEl = container.querySelector<HTMLElement>("[data-state=active]");
-  if (!activeEl) return;
-  const target = activeEl.offsetLeft - container.offsetWidth / 2 + activeEl.offsetWidth / 2;
-  container.scrollTo({ left: target, behavior: smooth ? "smooth" : "instant" });
+  const container = stepperScrollRef.value
+  if (!container) return
+  const trigger = container.querySelector<HTMLElement>('[data-state=active] button')
+  if (!trigger) return
+  const containerRect = container.getBoundingClientRect()
+  const triggerRect = trigger.getBoundingClientRect()
+  const offset =
+    triggerRect.left + triggerRect.width / 2 - containerRect.left - containerRect.width / 2
+  container.scrollTo({
+    left: container.scrollLeft + offset,
+    behavior: smooth ? 'smooth' : 'instant',
+  })
 }
 
 watch(currentStep, async () => {
-  await nextTick();
-  scrollToActiveStep();
-});
+  await nextTick()
+  scrollToActiveStep()
+})
 
 onMounted(async () => {
-  await nextTick();
-  scrollToActiveStep(false);
-});
+  await nextTick()
+  scrollToActiveStep(false)
+})
 </script>
 
 <template>
-  <div class="flex w-full flex-1 flex-col items-center gap-5 py-3 md:gap-8 md:py-6">
+  <div class="flex w-full flex-1 flex-col items-center gap-5 py-3 md:gap-8">
     <div class="text-center">
-      <h2 class="text-2xl font-bold tracking-tight md:text-4xl">Быстрая настройка</h2>
-      <p class="mt-1 text-sm text-muted-foreground md:mt-2 md:text-lg">
+      <h2 class="text-xl font-bold tracking-tight md:text-3xl">Быстрая настройка</h2>
+      <p class="mt-1 text-sm text-muted-foreground md:mt-2 md:text-base">
         Пошаговое руководство по настройке VPN
       </p>
     </div>
@@ -138,68 +144,96 @@ onMounted(async () => {
 
       <!-- Step counter -->
       <div class="flex items-center justify-center gap-2 text-sm text-muted-foreground">
-        <span>{{ isDone ? "Готово!" : `Шаг ${currentStep} из ${totalSteps}` }}</span>
+        <span>{{ isDone ? 'Готово!' : `Шаг ${currentStep} из ${totalSteps}` }}</span>
         <span class="font-medium text-primary">{{ Math.round(progress) }}%</span>
       </div>
 
-      <!-- Done state -->
-      <div v-if="isDone" class="glass overflow-hidden rounded-2xl">
-        <div class="flex flex-col items-center gap-4 p-8 text-center md:p-12">
-          <div
-            class="flex size-16 items-center justify-center rounded-full bg-primary/10 md:size-20"
-          >
-            <IconCheck class="size-8 text-primary md:size-10" />
-          </div>
-          <div>
-            <h3 class="text-xl font-bold md:text-2xl">Настройка завершена!</h3>
-            <p class="mt-1 text-muted-foreground">Все шаги выполнены. VPN готов к использованию.</p>
-          </div>
-          <BaseButton variant="secondary" class="mt-2" @click="currentStep = 1">
-            Пройти заново
-          </BaseButton>
-        </div>
-      </div>
-
-      <!-- Content card + navigation -->
-      <template v-else>
-        <div class="glass overflow-hidden rounded-2xl">
-          <div class="border-b border-glass-border px-5 py-3 md:px-8 md:py-4">
-            <h3 class="text-lg font-semibold md:text-xl">{{ activeStep?.title }}</h3>
-            <p class="text-sm text-muted-foreground">{{ activeStep?.description }}</p>
-          </div>
-          <div class="p-5 md:p-8">
-            <template v-for="step in steps" :key="step.order">
-              <div v-show="step.order === currentStep" class="prose">
-                <component :is="step.component" />
+      <Transition
+        mode="out-in"
+        enter-active-class="transition-all duration-200 ease-out"
+        leave-active-class="transition-all duration-150 ease-in"
+        :enter-from-class="slideForward ? 'translate-x-4 opacity-0' : '-translate-x-4 opacity-0'"
+        enter-to-class="translate-x-0 opacity-100"
+        :leave-to-class="slideForward ? '-translate-x-4 opacity-0' : 'translate-x-4 opacity-0'"
+        leave-from-class="translate-x-0 opacity-100"
+      >
+        <!-- Done state -->
+        <div v-if="isDone" key="done" class="flex flex-col gap-4 md:gap-8">
+          <div class="glass overflow-hidden rounded-2xl">
+            <div class="flex flex-col items-center gap-4 p-6 text-center md:p-12">
+              <div
+                class="flex size-16 items-center justify-center rounded-full bg-primary/10 md:size-20"
+              >
+                <IconCheck class="size-8 text-primary md:size-10" />
               </div>
-            </template>
+              <div>
+                <h3 class="text-xl font-bold md:text-2xl">Настройка завершена!</h3>
+                <p class="mt-1 text-muted-foreground">
+                  Все шаги выполнены. VPN готов к использованию.
+                </p>
+              </div>
+              <BaseButton variant="secondary" size="large" class="mt-2" @click="currentStep = 1">
+                Пройти заново
+              </BaseButton>
+            </div>
           </div>
         </div>
 
-        <!-- Step navigation -->
-        <div class="flex items-center justify-between">
-          <BaseButton
-            variant="secondary"
-            size="medium"
-            :disabled="isFirstStep"
-            class="gap-1.5"
-            @click="prevStep()"
-          >
-            <IconArrowRight class="size-4 rotate-180" />
-            <span class="hidden sm:inline">Назад</span>
-          </BaseButton>
+        <!-- Content card + navigation -->
+        <div v-else key="steps" class="flex flex-col gap-4 md:gap-8">
+          <div class="glass overflow-hidden rounded-2xl">
+            <div class="border-b border-glass-border px-5 py-3 md:px-8 md:py-4">
+              <h3 class="text-lg font-semibold md:text-xl">{{ activeStep?.title }}</h3>
+              <p class="text-sm text-muted-foreground">{{ activeStep?.description }}</p>
+            </div>
+            <div class="overflow-hidden p-5 md:p-8">
+              <Transition
+                mode="out-in"
+                enter-active-class="transition-all duration-200 ease-out"
+                leave-active-class="transition-all duration-150 ease-in"
+                :enter-from-class="
+                  slideForward ? 'translate-x-4 opacity-0' : '-translate-x-4 opacity-0'
+                "
+                enter-to-class="translate-x-0 opacity-100"
+                :leave-to-class="
+                  slideForward ? '-translate-x-4 opacity-0' : 'translate-x-4 opacity-0'
+                "
+                leave-from-class="translate-x-0 opacity-100"
+              >
+                <div :key="currentStep" class="prose">
+                  <component :is="activeStep?.component" />
+                </div>
+              </Transition>
+            </div>
+          </div>
 
-          <span class="text-sm text-muted-foreground"> {{ currentStep }} / {{ totalSteps }} </span>
+          <!-- Step navigation -->
+          <div class="flex items-center justify-between">
+            <BaseButton
+              variant="secondary"
+              size="large"
+              :disabled="isFirstStep"
+              class="gap-1.5"
+              @click="prevStep()"
+            >
+              <IconArrowRight class="size-4 rotate-180" />
+              <span class="hidden sm:inline">Назад</span>
+            </BaseButton>
 
-          <BaseButton size="medium" class="gap-1.5" @click="nextStep()">
-            <span class="hidden sm:inline">
-              {{ isLastStep ? "Завершить" : "Далее" }}
+            <span class="text-sm text-muted-foreground">
+              {{ currentStep }} / {{ totalSteps }}
             </span>
-            <IconCheck v-if="isLastStep" class="size-4" />
-            <IconArrowRight v-else class="size-4" />
-          </BaseButton>
+
+            <BaseButton size="large" class="gap-1.5" @click="nextStep()">
+              <span class="hidden sm:inline">
+                {{ isLastStep ? 'Завершить' : 'Далее' }}
+              </span>
+              <IconCheck v-if="isLastStep" class="size-4" />
+              <IconArrowRight v-else class="size-4" />
+            </BaseButton>
+          </div>
         </div>
-      </template>
+      </Transition>
 
       <!-- FAQ link (always visible) -->
       <div class="flex justify-center border-t border-border pt-6">

@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import IconRocket from "@/components/icons/rocket.svg";
-import IconMessageQuestionMark from "@/components/icons/message-question-mark.svg";
+import IconRocket from '@/components/icons/rocket.svg'
+import IconMessageQuestionMark from '@/components/icons/message-question-mark.svg'
 </script>
 
 <template>
   <div class="flex w-full flex-1 flex-col items-center justify-center gap-10">
     <div class="text-center">
-      <h2 class="text-3xl font-bold tracking-tight md:text-4xl">Добро пожаловать</h2>
-      <p class="mt-2 text-base text-muted-foreground md:text-lg">
+      <h2 class="text-xl font-bold tracking-tight md:text-3xl">Добро пожаловать</h2>
+      <p class="mt-1 text-sm text-muted-foreground md:mt-2 md:text-base">
         Выберите раздел для начала работы
       </p>
     </div>
@@ -24,7 +24,9 @@ import IconMessageQuestionMark from "@/components/icons/message-question-mark.sv
         </div>
         <div class="text-center">
           <span class="text-xl font-semibold md:text-2xl"> Быстрая настройка </span>
-          <p class="mt-1.5 text-sm text-muted-foreground">Пошаговое руководство по настройке VPN</p>
+          <p class="mt-1.5 text-sm text-muted-foreground md:text-base">
+            Пошаговое руководство по настройке VPN
+          </p>
         </div>
       </RouterLink>
 
@@ -39,7 +41,9 @@ import IconMessageQuestionMark from "@/components/icons/message-question-mark.sv
         </div>
         <div class="text-center">
           <span class="text-xl font-semibold md:text-2xl"> Часто задаваемые вопросы </span>
-          <p class="mt-1.5 text-sm text-muted-foreground">Ответы на популярные вопросы о VPN</p>
+          <p class="mt-1.5 text-sm text-muted-foreground md:text-base">
+            Ответы на популярные вопросы о VPN
+          </p>
         </div>
       </RouterLink>
     </div>
