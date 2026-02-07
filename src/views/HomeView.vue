@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import IconRocket from '@/components/icons/rocket.svg'
-import IconMessageQuestionMark from '@/components/icons/message-question-mark.svg'
+import IconRocket from "@/components/icons/rocket.svg";
+import IconMessageQuestionMark from "@/components/icons/message-question-mark.svg";
 </script>
 
 <template>
-  <div class="flex w-full flex-1 flex-col items-center justify-center gap-10">
+  <div class="flex w-full flex-1 flex-col items-center justify-center gap-10 md:mb-100">
     <div class="text-center">
       <h2 class="text-xl font-bold tracking-tight md:text-3xl">Добро пожаловать</h2>
       <p class="mt-1 text-sm text-muted-foreground md:mt-2 md:text-base">

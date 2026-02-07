@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { computed, nextTick, onMounted, ref, watch, type Component } from 'vue'
-import { useRouteQuery } from '@vueuse/router'
+import { computed, nextTick, onMounted, ref, watch, type Component } from "vue";
+import { useRouteQuery } from "@vueuse/router";
 
-import { BaseButton } from '@/components/base/button'
+import { BaseButton } from "@/components/base/button";
 import {
   BaseStepper,
   BaseStepperItem,
@@ -10,75 +10,77 @@ import {
   BaseStepperIndicator,
   BaseStepperTitle,
   BaseStepperSeparator,
-} from '@/components/base/stepper'
-import { useMarkdownContent } from '@/composables/useMarkdownContent'
+} from "@/components/base/stepper";
+import { useMarkdownContent } from "@/composables/useMarkdownContent";
 
-import IconCheck from '@/components/icons/check.svg'
-import IconArrowRight from '@/components/icons/arrow-right.svg'
+import IconCheck from "@/components/icons/check.svg";
+import IconArrowRight from "@/components/icons/arrow-right.svg";
 
 const steps = useMarkdownContent(
   import.meta.glob<{
-    default: Component
-    title: string
-    description: string
-    order: number
-  }>('@/content/guide/*.md', { eager: true }),
-)
+    default: Component;
+    title: string;
+    description: string;
+    order: number;
+  }>("@/content/guide/*.md", { eager: true }),
+);
 
-const currentStep = useRouteQuery('step', '1', { transform: Number, mode: 'replace' })
-const totalSteps = steps.length
-const isFirstStep = computed(() => currentStep.value === 1)
-const isLastStep = computed(() => currentStep.value === totalSteps)
-const isDone = computed(() => currentStep.value > totalSteps)
-const activeStep = computed(() => steps[currentStep.value - 1])
-const progress = computed(() => (isDone.value ? 100 : ((currentStep.value - 1) / totalSteps) * 100))
+const currentStep = useRouteQuery("step", "1", { transform: Number, mode: "replace" });
+const totalSteps = steps.length;
+const isFirstStep = computed(() => currentStep.value === 1);
+const isLastStep = computed(() => currentStep.value === totalSteps);
+const isDone = computed(() => currentStep.value > totalSteps);
+const activeStep = computed(() => steps[currentStep.value - 1]);
+const progress = computed(() =>
+  isDone.value ? 100 : ((currentStep.value - 1) / totalSteps) * 100,
+);
 
-const slideForward = ref(true)
+const slideForward = ref(true);
 
 function nextStep() {
   if (currentStep.value <= totalSteps) {
-    slideForward.value = true
-    currentStep.value++
+    slideForward.value = true;
+    currentStep.value++;
   }
 }
 
 function prevStep() {
   if (currentStep.value > 1) {
-    slideForward.value = false
-    currentStep.value--
+    slideForward.value = false;
+    currentStep.value--;
   }
 }
 
 watch(currentStep, (newVal, oldVal) => {
-  slideForward.value = newVal > oldVal
-})
+  slideForward.value = newVal > oldVal;
+});
 
-const stepperScrollRef = ref<HTMLElement | null>(null)
+const stepperScrollRef = ref<HTMLElement | null>(null);
 
 function scrollToActiveStep(smooth = true) {
-  const container = stepperScrollRef.value
-  if (!container) return
-  const trigger = container.querySelector<HTMLElement>('[data-state=active] button')
-  if (!trigger) return
-  const containerRect = container.getBoundingClientRect()
-  const triggerRect = trigger.getBoundingClientRect()
+  const container = stepperScrollRef.value;
+  if (!container) return;
+  const trigger = container.querySelector<HTMLElement>("[data-state=active] button");
+  if (!trigger) return;
+  const containerRect = container.getBoundingClientRect();
+  const triggerRect = trigger.getBoundingClientRect();
   const offset =
-    triggerRect.left + triggerRect.width / 2 - containerRect.left - containerRect.width / 2
+    triggerRect.left + triggerRect.width / 2 - containerRect.left - containerRect.width / 2;
   container.scrollTo({
     left: container.scrollLeft + offset,
-    behavior: smooth ? 'smooth' : 'instant',
-  })
+    behavior: smooth ? "smooth" : "instant",
+  });
 }
 
 watch(currentStep, async () => {
-  await nextTick()
-  scrollToActiveStep()
-})
+  await nextTick();
+  scrollToActiveStep();
+});
 
 onMounted(async () => {
-  await nextTick()
-  scrollToActiveStep(false)
-})
+  await nextTick();
+  scrollToActiveStep(false);
+});
 </script>
 
 <template>
@@ -140,12 +142,6 @@ onMounted(async () => {
             </template>
           </BaseStepper>
         </div>
-      </div>
-
-      <!-- Step counter -->
-      <div class="flex items-center justify-center gap-2 text-sm text-muted-foreground">
-        <span>{{ isDone ? 'Готово!' : `Шаг ${currentStep} из ${totalSteps}` }}</span>
-        <span class="font-medium text-primary">{{ Math.round(progress) }}%</span>
       </div>
 
       <Transition
@@ -220,13 +216,14 @@ onMounted(async () => {
               <span class="hidden sm:inline">Назад</span>
             </BaseButton>
 
-            <span class="text-sm text-muted-foreground">
-              {{ currentStep }} / {{ totalSteps }}
-            </span>
+            <div class="flex items-center justify-center gap-2 text-sm text-muted-foreground">
+              <span>{{ isDone ? "Готово!" : `Шаг ${currentStep} из ${totalSteps}` }}</span>
+              <span class="font-medium text-primary">{{ Math.round(progress) }}%</span>
+            </div>
 
             <BaseButton size="large" class="gap-1.5" @click="nextStep()">
               <span class="hidden sm:inline">
-                {{ isLastStep ? 'Завершить' : 'Далее' }}
+                {{ isLastStep ? "Завершить" : "Далее" }}
               </span>
               <IconCheck v-if="isLastStep" class="size-4" />
               <IconArrowRight v-else class="size-4" />
@@ -242,7 +239,7 @@ onMounted(async () => {
           class="text-sm text-muted-foreground transition-colors hover:text-primary"
         >
           Остались вопросы?
-          <span class="font-medium underline underline-offset-4">Перейти к FAQ</span>
+          <span class="font-medium underline underline-offset-4">Перейти к вопросам на ответы</span>
         </RouterLink>
       </div>
     </div>
