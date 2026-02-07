@@ -1,6 +1,7 @@
 ---
 title: Как проверить, что VPN работает и IP изменился?
 order: 2
+tags: [компьютер, телефон]
 ---
 
 Самый простой способ — зайдите на сайт [2ip.ru](https://2ip.ru) или [whatismyipaddress.com](https://whatismyipaddress.com/) до и после подключения к VPN.

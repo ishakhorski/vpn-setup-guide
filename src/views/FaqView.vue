@@ -8,12 +8,14 @@ import {
   BaseAccordionTrigger,
   BaseAccordionContent,
 } from '@/components/base/accordion'
+import { BaseBadge } from '@/components/base/badge'
 import { useMarkdownContent } from '@/composables/useMarkdownContent'
 
 const faqs = useMarkdownContent(
-  import.meta.glob<{ default: Component; title: string; order: number }>('@/content/faq/*.md', {
-    eager: true,
-  }),
+  import.meta.glob<{ default: Component; title: string; order: number; tags: string[] }>(
+    '@/content/faq/*.md',
+    { eager: true },
+  ),
 )
 
 const currentFaq = useRouteQuery<string | undefined>('faq', undefined, { mode: 'replace' })
@@ -36,7 +38,18 @@ const currentFaq = useRouteQuery<string | undefined>('faq', undefined, { mode: '
     >
       <BaseAccordionItem v-for="faq in faqs" :key="faq.order" :value="`faq-${faq.order}`">
         <BaseAccordionTrigger>
-          {{ faq.title }}
+          <span>
+            {{ faq.title }}
+            <BaseBadge
+              v-for="tag in faq.tags"
+              :key="tag"
+              variant="outline"
+              size="small"
+              class="ml-1.5 align-middle"
+            >
+              {{ tag }}
+            </BaseBadge>
+          </span>
         </BaseAccordionTrigger>
         <BaseAccordionContent class="prose">
           <component :is="faq.component" />
