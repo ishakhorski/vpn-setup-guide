@@ -1,24 +1,30 @@
 ---
-title: Какие платформы поддерживаются?
+title: Какие платформы и клиенты поддерживаются?
 order: 2
 ---
 
 VLESS VPN работает на всех популярных платформах. Для каждой ОС есть проверенные клиенты:
 
-### Десктоп
+### Для ПК
 
-- **Windows** — [V2rayN](https://github.com/2dust/v2rayN) (рекомендуется), [Nekoray](https://github.com/MatsuriDayo/nekoray)
-- **macOS** — [V2rayU](https://github.com/yanue/V2rayU), [Nekoray](https://github.com/MatsuriDayo/nekoray)
-- **Linux** — [Nekoray](https://github.com/MatsuriDayo/nekoray), [v2rayA](https://github.com/v2rayA/v2rayA) (веб-интерфейс)
+- **Windows** — [v2rayN](https://github.com/2dust/v2rayN) (рекомендуется), [NekoRay](https://github.com/MatsuriDayo/nekoray) (поддержка завершена), [Hiddify](https://github.com/hiddify/hiddify-app)
+- **macOS** — [V2Box](https://apps.apple.com/ru/app/v2box-v2ray-client/id6446814690), [Streisand](https://apps.apple.com/ru/app/streisand/id6450534064), [Hiddify](https://apps.apple.com/us/app/hiddify-proxy-vpn/id6596777532)
+- **Linux** — [NekoRay](https://github.com/MatsuriDayo/nekoray), [v2rayA](https://github.com/v2rayA/v2rayA) (веб-интерфейс)
 
 ### Мобильные устройства
 
-- **Android** — [v2rayNG](https://github.com/2dust/v2rayNG) (рекомендуется), NekoBox
-- **iOS** — [Streisand](https://apps.apple.com/app/streisand/id6450534064), Shadowrocket
+- **Android** — [NekoBox](https://github.com/MatsuriDayo/NekoBoxForAndroid) (рекомендуется), [v2rayNG](https://github.com/2dust/v2rayNG), [Hiddify](https://play.google.com/store/apps/details?id=app.hiddify.com)
+- **iOS** — [V2Box](https://apps.apple.com/ru/app/v2box-v2ray-client/id6446814690) (рекомендуется), [Streisand](https://apps.apple.com/ru/app/streisand/id6450534064), [Shadowrocket](https://apps.apple.com/us/app/shadowrocket/id932747118) (платный)
+
+<div class="warning">
+
+**Важно:** не скачивайте NekoBox из Google Play — разработчик предупреждает, что версия оттуда неофициальная и может быть опасной. Скачивайте только с GitHub.
+
+</div>
 
 <div class="tip">
 
-**Совет:** для быстрой настройки на любой платформе можно использовать ссылку-подписку — просто скопируйте её в клиент, и он автоматически импортирует конфигурацию.
+**Совет:** для быстрой настройки на любой платформе используйте ссылку-подписку — просто скопируйте её в клиент, и он автоматически импортирует конфигурацию.
 
 </div>
 
