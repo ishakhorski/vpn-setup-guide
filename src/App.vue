@@ -24,14 +24,19 @@ const { isDark } = useTheme();
 
     <header class="glass sticky top-0 z-50">
       <div
-        class="container mx-auto flex items-center justify-between px-8 py-4 md:px-10 md:py-5 lg:px-12 lg:py-6"
+        class="container mx-auto flex items-center justify-between px-6 py-3 md:px-10 md:py-4 lg:px-12 lg:py-5"
       >
-        <h1 class="text-xl font-bold tracking-tight md:text-2xl">VLESS VPN</h1>
+        <RouterLink
+          to="/"
+          class="text-xl font-bold tracking-tight md:text-2xl cursor-pointer outline-none rounded-md focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50"
+        >
+          VLESS VPN
+        </RouterLink>
         <ThemeSwitch v-model="isDark" />
       </div>
     </header>
 
-    <main class="container mx-auto flex flex-1 flex-col p-6 md:p-8 lg:p-10">
+    <main class="container mx-auto flex flex-1 flex-col p-6 md:px-8 lg:px-10">
       <RouterView />
     </main>
   </div>

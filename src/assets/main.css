@@ -1,5 +1,5 @@
-@import "tailwindcss";
-@import "@/assets/theme.css";
+@import 'tailwindcss';
+@import '@/assets/theme.css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -8,9 +8,9 @@
     font-family:
       system-ui,
       -apple-system,
-      "Segoe UI",
+      'Segoe UI',
       Roboto,
-      "Helvetica Neue",
+      'Helvetica Neue',
       Arial,
       sans-serif;
     background-color: var(--background);
@@ -96,7 +96,9 @@
     text-decoration: underline;
     text-decoration-thickness: 1px;
     text-underline-offset: 3px;
-    transition: color 0.15s, text-decoration-color 0.15s;
+    transition:
+      color 0.15s,
+      text-decoration-color 0.15s;
   }
 
   .prose a:hover {
@@ -140,7 +142,7 @@
   .prose code {
     padding: 0.15em 0.4em;
     font-size: 0.85em;
-    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
     background: var(--muted);
     border-radius: 0.25rem;
     border: 1px solid var(--border);

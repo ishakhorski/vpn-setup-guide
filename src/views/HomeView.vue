@@ -12,7 +12,7 @@ import IconMessageQuestionMark from "@/components/icons/message-question-mark.sv
       </p>
     </div>
 
-    <div class="grid w-full max-w-240 grid-cols-1 gap-6 md:grid-cols-2 md:gap-10">
+    <div class="grid w-full grid-cols-1 gap-6 md:grid-cols-2 md:gap-10">
       <RouterLink
         to="/guide"
         class="glass group flex cursor-pointer flex-col items-center gap-4 rounded-2xl p-8 text-card-foreground transition-all duration-300 hover:scale-[1.03] hover:border-primary/30 hover:shadow-xl md:p-10"

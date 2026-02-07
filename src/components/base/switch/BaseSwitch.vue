@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { HTMLAttributes } from "vue";
-import { reactiveOmit } from "@vueuse/core";
-import { twMerge } from "tailwind-merge";
+import type { HTMLAttributes } from 'vue'
+import { reactiveOmit } from '@vueuse/core'
+import { twMerge } from 'tailwind-merge'
 
 import {
   SwitchRoot,
@@ -9,28 +9,28 @@ import {
   useForwardPropsEmits,
   type SwitchRootProps,
   type SwitchRootEmits,
-} from "reka-ui";
+} from 'reka-ui'
 
 import {
   baseSwitchRootVariation,
   baseSwitchThumbVariation,
   type BaseSwitchVariant,
   type BaseSwitchSize,
-} from "./index";
+} from './index'
 
 const props = defineProps<
   SwitchRootProps & {
-    variant?: BaseSwitchVariant;
-    size?: BaseSwitchSize;
-    class?: HTMLAttributes["class"];
+    variant?: BaseSwitchVariant
+    size?: BaseSwitchSize
+    class?: HTMLAttributes['class']
   }
->();
+>()
 
-const emits = defineEmits<SwitchRootEmits>();
+const emits = defineEmits<SwitchRootEmits>()
 
-const delegatedProps = reactiveOmit(props, "variant", "size", "class");
+const delegatedProps = reactiveOmit(props, 'variant', 'size', 'class')
 
-const forwarded = useForwardPropsEmits(delegatedProps, emits);
+const forwarded = useForwardPropsEmits(delegatedProps, emits)
 </script>
 
 <template>

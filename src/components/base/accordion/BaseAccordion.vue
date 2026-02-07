@@ -1,15 +1,32 @@
 <script setup lang="ts">
+import { computed, provide } from 'vue'
+import { reactiveOmit } from '@vueuse/core'
+
 import {
   AccordionRoot,
   useForwardPropsEmits,
   type AccordionRootEmits,
   type AccordionRootProps,
-} from "reka-ui";
+} from 'reka-ui'
 
-const props = defineProps<AccordionRootProps>();
-const emits = defineEmits<AccordionRootEmits>();
+import { baseAccordionContextKey, type BaseAccordionVariant, type BaseAccordionSize } from './index'
 
-const forwarded = useForwardPropsEmits(props, emits);
+const props = defineProps<
+  AccordionRootProps & {
+    variant?: BaseAccordionVariant
+    size?: BaseAccordionSize
+  }
+>()
+const emits = defineEmits<AccordionRootEmits>()
+
+const delegatedProps = reactiveOmit(props, 'variant', 'size')
+
+const forwarded = useForwardPropsEmits(delegatedProps, emits)
+
+provide(baseAccordionContextKey, {
+  variant: computed(() => props.variant),
+  size: computed(() => props.size),
+})
 </script>
 
 <template>

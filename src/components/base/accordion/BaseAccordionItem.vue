@@ -1,30 +1,37 @@
 <script setup lang="ts">
-import type { HTMLAttributes } from "vue";
-import { reactiveOmit } from "@vueuse/core";
-import { twMerge } from "tailwind-merge";
+import { inject, type HTMLAttributes } from 'vue'
+import { reactiveOmit } from '@vueuse/core'
+import { twMerge } from 'tailwind-merge'
 
-import { AccordionItem, useForwardProps, type AccordionItemProps } from "reka-ui";
+import { AccordionItem, useForwardProps, type AccordionItemProps } from 'reka-ui'
 
-import {
-  baseAccordionItemVariation,
-  type BaseAccordionItemVariation,
-} from "./index";
+import { baseAccordionItemVariation, baseAccordionContextKey } from './index'
 
 const props = defineProps<
   AccordionItemProps & {
-    variant?: BaseAccordionItemVariation["variant"];
-    class?: HTMLAttributes["class"];
+    class?: HTMLAttributes['class']
   }
->();
+>()
 
-const delegatedProps = reactiveOmit(props, "variant", "class");
-const forwardedProps = useForwardProps(delegatedProps);
+const context = inject(baseAccordionContextKey)
+
+if (!context) {
+  throw new Error('BaseAccordionItem must be used within a BaseAccordion')
+}
+
+const delegatedProps = reactiveOmit(props, 'class')
+const forwardedProps = useForwardProps(delegatedProps)
 </script>
 
 <template>
   <AccordionItem
     v-bind="forwardedProps"
-    :class="twMerge(baseAccordionItemVariation({ variant: props.variant }), props.class)"
+    :class="
+      twMerge(
+        baseAccordionItemVariation({ variant: context.variant.value, size: context.size.value }),
+        props.class,
+      )
+    "
   >
     <slot />
   </AccordionItem>

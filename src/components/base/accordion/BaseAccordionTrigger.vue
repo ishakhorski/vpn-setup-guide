@@ -1,25 +1,27 @@
 <script setup lang="ts">
-import type { HTMLAttributes } from "vue";
-import { reactiveOmit } from "@vueuse/core";
-import { twMerge } from "tailwind-merge";
+import { inject, type HTMLAttributes } from 'vue'
+import { reactiveOmit } from '@vueuse/core'
+import { twMerge } from 'tailwind-merge'
 
-import { AccordionHeader, AccordionTrigger, type AccordionTriggerProps } from "reka-ui";
+import { AccordionHeader, AccordionTrigger, type AccordionTriggerProps } from 'reka-ui'
 
-import IconChevronUp from "@/components/icons/chevron-up.svg";
+import IconChevronUp from '@/components/icons/chevron-up.svg'
 
-import {
-  baseAccordionTriggerVariation,
-  type BaseAccordionTriggerVariation,
-} from "./index";
+import { baseAccordionTriggerVariation, baseAccordionContextKey } from './index'
 
 const props = defineProps<
   AccordionTriggerProps & {
-    variant?: BaseAccordionTriggerVariation["variant"];
-    class?: HTMLAttributes["class"];
+    class?: HTMLAttributes['class']
   }
->();
+>()
 
-const delegatedProps = reactiveOmit(props, "variant", "class");
+const context = inject(baseAccordionContextKey)
+
+if (!context) {
+  throw new Error('BaseAccordionTrigger must be used within a BaseAccordion')
+}
+
+const delegatedProps = reactiveOmit(props, 'class')
 </script>
 
 <template>
@@ -27,7 +29,13 @@ const delegatedProps = reactiveOmit(props, "variant", "class");
     <AccordionTrigger
       v-bind="delegatedProps"
       :class="
-        twMerge(baseAccordionTriggerVariation({ variant: props.variant }), props.class)
+        twMerge(
+          baseAccordionTriggerVariation({
+            variant: context.variant.value,
+            size: context.size.value,
+          }),
+          props.class,
+        )
       "
     >
       <slot />

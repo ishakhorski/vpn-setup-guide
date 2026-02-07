@@ -28,9 +28,13 @@ Vue 3 + Vite + TypeScript application for VPN setup guides.
 
 ### Component patterns
 
-Base components (`src/components/base/`) wrap [reka-ui](https://reka-ui.com/) headless primitives and use `class-variance-authority` (CVA) for type-safe variant definitions with `tailwind-merge` for class composition. Each base component folder has an `index.ts` exporting the component and its CVA variants.
+Base components (`src/components/base/`) wrap [reka-ui](https://reka-ui.com/) headless primitives and use `class-variance-authority` (CVA) for type-safe variant definitions with `tailwind-merge` for class composition. Each base component folder has an `index.ts` exporting the component and its CVA variants. Components use `reactiveOmit` from `@vueuse/core` to separate variant props from HTML attributes, and `useForwardProps` from reka-ui for delegating the rest.
 
 The switch components use Vue `provide/inject` for parent-child context (BaseSwitchRoot provides size context to BaseSwitchThumb).
+
+### Content pattern
+
+Markdown content lives in `src/content/` (e.g., `faq/`, `guide/`). Files use YAML frontmatter (title, order) and are loaded via `import.meta.glob` with `eager: true`. Each `.md` file is auto-compiled into a Vue component by `unplugin-vue-markdown`.
 
 ### Styling entry point
 
@@ -38,7 +42,7 @@ The switch components use Vue `provide/inject` for parent-child context (BaseSwi
 
 ### Dark mode
 
-Custom Tailwind v4 variant and CSS custom properties are defined in `src/assets/theme.css`. Dark mode is activated by adding a `.dark` class to `<body>`, with `prefers-color-scheme` system preference fallback. Theme state is managed by the `useTheme` composable (`src/composables/useTheme.ts`) which persists to localStorage.
+Custom Tailwind v4 variant and CSS custom properties are defined in `src/assets/theme.css`. Colors use OKLCh format and are exposed as utilities via `@theme inline`. Dark mode uses `@custom-variant dark (&:is(.dark *))` and is activated by adding a `.dark` class to `<body>`, with `prefers-color-scheme` system preference fallback. Theme state is managed by the `useTheme` composable (`src/composables/useTheme.ts`) which persists to localStorage.
 
 ## Linting Setup
 
