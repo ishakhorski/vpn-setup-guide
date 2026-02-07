@@ -1,7 +1,7 @@
 ---
-title: Подробная настройка Android
+title: Подробная настройка
 description: Маршрутизация и настройка приложений на Android
-order: 9
+order: 5
 ---
 
 После базовой настройки NekoBox можно более тонко настроить маршрутизацию на Android.
@@ -24,7 +24,7 @@ order: 9
 4. Для отключения этого режима выберите `Выключенный`
 
 <div class="w-full flex justify-center">
-    <img src="../images/NekoBox1.jpg" alt="Настройка режима VPN для приложений в NekoBox" style="max-height: 420px;" />
+    <img src="../../images/NekoBox1.jpg" alt="Настройка режима VPN для приложений в NekoBox" style="max-height: 420px;" />
 </div>
 
 #### Способ 2: Через маршруты
@@ -35,7 +35,7 @@ order: 9
 4. В поле `outbound` выберите `Обход`, если нужно, чтобы эти приложения выходили в интернет напрямую
 5. Расположите правило над другими правилами, которые могут на него влиять (например, над `Global - CIS`)
 
-<img src="../images/NekoBox2.jpg" alt="Настройка маршрутов в NekoBox" style="max-height: 420px;" />
+<img src="../../images/NekoBox2.jpg" alt="Настройка маршрутов в NekoBox" style="max-height: 420px;" />
 
 <div class="tip">
 

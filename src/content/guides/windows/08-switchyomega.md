@@ -21,7 +21,7 @@ order: 8
 4. Нажмите `Apply changes`
 
 <div class="w-full flex justify-center">
-    <img src="../images/SwitchyOmega1.png" alt="Настройка правил SwitchyOmega" style="max-height: 300px;" />
+    <img src="../../images/SwitchyOmega1.png" alt="Настройка правил SwitchyOmega" style="max-height: 300px;" />
 </div>
 
 ### Режимы использования
@@ -30,4 +30,4 @@ order: 8
 - **System Proxy** — использует правила, настроенные в v2rayN
 - **Direct** — чистый интернет без каких-либо правил и проксирования
 
-<img src="../images/SwitchyOmega2.png" alt="Выбор режима SwitchyOmega" style="max-height: 300px;" />
+<img src="../../images/SwitchyOmega2.png" alt="Выбор режима SwitchyOmega" style="max-height: 300px;" />

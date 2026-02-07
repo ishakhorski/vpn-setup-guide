@@ -9,7 +9,7 @@ const router = createRouter({
       component: () => import('@/views/HomeView.vue'),
     },
     {
-      path: '/guide',
+      path: '/guide/:platform(windows|android|apple)',
       name: 'guide',
       component: () => import('@/views/GuideView.vue'),
     },

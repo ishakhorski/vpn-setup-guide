@@ -20,7 +20,7 @@ order: 7
 4. Нажмите `Save Changes`
 
 <div class="w-full flex justify-center">
-    <img src="../images/win10loopback.png" alt="Настройка Win10 UWP Loopback" style="max-height: 400px;" />
+    <img src="../../images/win10loopback.png" alt="Настройка Win10 UWP Loopback" style="max-height: 400px;" />
 </div>
 
 Теперь UWP-приложения работают.

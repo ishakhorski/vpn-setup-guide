@@ -1,24 +1,24 @@
 <script setup lang="ts">
-import { type Component } from 'vue'
-import { useRouteQuery } from '@vueuse/router'
+import { type Component } from "vue";
+import { useRouteQuery } from "@vueuse/router";
 
 import {
   BaseAccordion,
   BaseAccordionItem,
   BaseAccordionTrigger,
   BaseAccordionContent,
-} from '@/components/base/accordion'
-import { BaseBadge } from '@/components/base/badge'
-import { useMarkdownContent } from '@/composables/useMarkdownContent'
+} from "@/components/base/accordion";
+import { BaseBadge } from "@/components/base/badge";
+import { useMarkdownContent } from "@/composables/useMarkdownContent";
 
 const faqs = useMarkdownContent(
   import.meta.glob<{ default: Component; title: string; order: number; tags: string[] }>(
-    '@/content/faq/*.md',
+    "@/content/faq/*.md",
     { eager: true },
   ),
-)
+);
 
-const currentFaq = useRouteQuery<string | undefined>('faq', undefined, { mode: 'replace' })
+const currentFaq = useRouteQuery<string | undefined>("faq", undefined, { mode: "replace" });
 </script>
 
 <template>
@@ -36,7 +36,7 @@ const currentFaq = useRouteQuery<string | undefined>('faq', undefined, { mode: '
       collapsible
       class="flex w-full flex-col gap-3"
     >
-      <BaseAccordionItem v-for="faq in faqs" :key="faq.order" :value="`faq-${faq.order}`">
+      <BaseAccordionItem v-for="faq in faqs" :key="faq.order" :value="faq.order.toString()">
         <BaseAccordionTrigger>
           <span>
             {{ faq.title }}
@@ -58,12 +58,9 @@ const currentFaq = useRouteQuery<string | undefined>('faq', undefined, { mode: '
     </BaseAccordion>
 
     <div class="w-full flex justify-center border-t border-border pt-6">
-      <RouterLink
-        to="/guide"
-        class="text-sm text-muted-foreground transition-colors hover:text-primary"
-      >
+      <RouterLink to="/" class="text-sm text-muted-foreground transition-colors hover:text-primary">
         Нужна помощь с настройкой?
-        <span class="font-medium underline underline-offset-4">Перейти к руководству</span>
+        <span class="font-medium underline underline-offset-4">Перейти к руководствам</span>
       </RouterLink>
     </div>
   </div>
