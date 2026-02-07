@@ -56,6 +56,7 @@ watch(currentStep, (newVal, oldVal) => {
 });
 
 const stepperScrollRef = ref<HTMLElement | null>(null);
+const contentScrollRef = ref<HTMLElement | null>(null);
 
 function scrollToActiveStep(smooth = true) {
   const container = stepperScrollRef.value;
@@ -75,6 +76,9 @@ function scrollToActiveStep(smooth = true) {
 watch(currentStep, async () => {
   await nextTick();
   scrollToActiveStep();
+  if (contentScrollRef.value) {
+    contentScrollRef.value.scrollTop = 0;
+  }
 });
 
 onMounted(async () => {
@@ -84,7 +88,9 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="flex w-full flex-1 flex-col items-center gap-5 py-3 md:gap-8">
+  <div
+    class="flex w-full max-h-[calc(100dvh-6.5rem)] min-h-0 flex-1 flex-col items-center gap-5 py-3 md:max-h-[calc(100dvh-7.5rem)] md:gap-8"
+  >
     <div class="text-center">
       <h2 class="text-xl font-bold tracking-tight md:text-3xl">Быстрая настройка</h2>
       <p class="mt-1 text-sm text-muted-foreground md:mt-2 md:text-base">
@@ -92,7 +98,7 @@ onMounted(async () => {
       </p>
     </div>
 
-    <div class="flex w-full flex-col gap-4 md:gap-8">
+    <div class="flex w-full min-h-0 flex-1 flex-col gap-4 md:gap-8">
       <!-- Scrollable stepper -->
       <div class="relative">
         <div ref="stepperScrollRef" class="stepper-scroll overflow-x-auto">
@@ -176,13 +182,16 @@ onMounted(async () => {
         </div>
 
         <!-- Content card + navigation -->
-        <div v-else key="steps" class="flex flex-col gap-4 md:gap-8">
-          <div class="glass overflow-hidden rounded-2xl">
+        <div v-else key="steps" class="flex min-h-0 flex-1 flex-col gap-4 md:gap-8">
+          <div class="glass flex min-h-0 flex-1 flex-col overflow-hidden rounded-2xl">
             <div class="border-b border-glass-border px-5 py-3 md:px-8 md:py-4">
               <h3 class="text-lg font-semibold md:text-xl">{{ activeStep?.title }}</h3>
               <p class="text-sm text-muted-foreground">{{ activeStep?.description }}</p>
             </div>
-            <div class="overflow-hidden p-5 md:p-8">
+            <div
+              ref="contentScrollRef"
+              class="min-h-0 flex-1 overflow-x-hidden overflow-y-auto p-5 md:p-8"
+            >
               <Transition
                 mode="out-in"
                 enter-active-class="transition-all duration-200 ease-out"
@@ -196,13 +205,8 @@ onMounted(async () => {
                 "
                 leave-from-class="translate-x-0 opacity-100"
               >
-                <div :key="currentStep" class="flex gap-4">
-                  <div class="prose">
-                    <component :is="activeStep?.component" />
-                  </div>
-                  <div>
-                    <img v-if="activeStep?.image" :src="activeStep.image" alt="Step Image" />
-                  </div>
+                <div :key="currentStep" class="prose">
+                  <component :is="activeStep?.component" />
                 </div>
               </Transition>
             </div>
