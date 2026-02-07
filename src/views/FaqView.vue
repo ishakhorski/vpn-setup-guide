@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import type { Component } from 'vue'
+import { type Component } from 'vue'
+import { useRouteQuery } from '@vueuse/router'
 
 import {
   BaseAccordion,
@@ -14,6 +15,8 @@ const faqs = useMarkdownContent(
     eager: true,
   }),
 )
+
+const currentFaq = useRouteQuery<string | undefined>('faq', undefined, { mode: 'replace' })
 </script>
 
 <template>
@@ -25,7 +28,12 @@ const faqs = useMarkdownContent(
       </p>
     </div>
 
-    <BaseAccordion type="single" collapsible class="flex w-full flex-col gap-3">
+    <BaseAccordion
+      v-model="currentFaq"
+      type="single"
+      collapsible
+      class="flex w-full flex-col gap-3"
+    >
       <BaseAccordionItem v-for="faq in faqs" :key="faq.order" :value="`faq-${faq.order}`">
         <BaseAccordionTrigger>
           {{ faq.title }}

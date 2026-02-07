@@ -1,4 +1,4 @@
-import type { Component } from 'vue'
+import { type Component } from 'vue'
 
 export function useMarkdownContent<T extends { default: Component; order: number }>(
   modules: Record<string, T>,

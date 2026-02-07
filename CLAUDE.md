@@ -30,19 +30,23 @@ Vue 3 + Vite + TypeScript application for VPN setup guides.
 
 Base components (`src/components/base/`) wrap [reka-ui](https://reka-ui.com/) headless primitives and use `class-variance-authority` (CVA) for type-safe variant definitions with `tailwind-merge` for class composition. Each base component folder has an `index.ts` exporting the component and its CVA variants. Components use `reactiveOmit` from `@vueuse/core` to separate variant props from HTML attributes, and `useForwardProps` from reka-ui for delegating the rest.
 
-The switch components use Vue `provide/inject` for parent-child context (BaseSwitchRoot provides size context to BaseSwitchThumb).
+Compound components (accordion, stepper, switch) use Vue `provide/inject` to share variant/size context from root to children. Context keys are exported `InjectionKey` symbols from each component's `index.ts`.
 
 ### Content pattern
 
-Markdown content lives in `src/content/` (e.g., `faq/`, `guide/`). Files use YAML frontmatter (title, order) and are loaded via `import.meta.glob` with `eager: true`. Each `.md` file is auto-compiled into a Vue component by `unplugin-vue-markdown`.
+Markdown content lives in `src/content/` (e.g., `faq/`, `guide/`). Files use YAML frontmatter (title, order) and are loaded via `import.meta.glob` with `eager: true`. Each `.md` file is auto-compiled into a Vue component by `unplugin-vue-markdown`. The `useMarkdownContent` composable (`src/composables/useMarkdownContent.ts`) transforms glob results into a sorted array of `{ component, ...frontmatter }` entries. Markdown is rendered inside a `.prose` container; custom CSS classes `.tip` and `.warning` are available for callout boxes (styled in `src/assets/prose.css`).
 
 ### Styling entry point
 
-`src/assets/main.css` imports Tailwind and `./theme.css`, then defines base page styles (font, background, color, font smoothing, min-height). The Tailwind CSS v4 vite plugin auto-discovers this file.
+`src/assets/main.css` imports Tailwind, `./theme.css`, and `./prose.css`, then defines base page styles, animations, and a `@utility glass` for glassmorphism effects.
 
 ### Dark mode
 
-Custom Tailwind v4 variant and CSS custom properties are defined in `src/assets/theme.css`. Colors use OKLCh format and are exposed as utilities via `@theme inline`. Dark mode uses `@custom-variant dark (&:is(.dark *))` and is activated by adding a `.dark` class to `<body>`, with `prefers-color-scheme` system preference fallback. Theme state is managed by the `useTheme` composable (`src/composables/useTheme.ts`) which persists to localStorage.
+Custom Tailwind v4 variant and CSS custom properties are defined in `src/assets/theme.css`. Colors use OKLCh format and are exposed as utilities via `@theme inline`. Dark mode uses `@custom-variant dark (&:is(.dark *))` and is activated by adding a `.dark` class to `<body>`, with `prefers-color-scheme` system preference fallback. Theme state is managed by the `useTheme` composable (`src/composables/useTheme.ts`) which persists to localStorage. An inline script in `index.html` applies the `.dark` class before Vue mounts to prevent FOUC.
+
+### Route-driven state
+
+Views use `useRouteQuery` from `@vueuse/router` to sync UI state (active step, open FAQ) with query parameters (e.g., `?step=2`), enabling deep-linkable views.
 
 ## Linting Setup
 
