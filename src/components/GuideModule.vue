@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed, nextTick, onMounted, ref, watch, type Component } from "vue";
+import { computed, nextTick, onMounted, ref, watch, type Component } from 'vue'
 
-import { BaseButton } from "@/components/base/button";
+import { BaseButton } from '@/components/base/button'
 import {
   BaseStepper,
   BaseStepperItem,
@@ -9,85 +9,97 @@ import {
   BaseStepperIndicator,
   BaseStepperTitle,
   BaseStepperSeparator,
-} from "@/components/base/stepper";
+} from '@/components/base/stepper'
+import {
+  BaseDialog,
+  BaseDialogTrigger,
+  BaseDialogScrollContent,
+  BaseDialogHeader,
+  BaseDialogTitle,
+  BaseDialogDescription,
+} from '@/components/base/dialog'
 
-import IconCheck from "@/components/icons/check.svg";
-import IconArrowRight from "@/components/icons/arrow-right.svg";
+import IconCheck from '@/components/icons/check.svg'
+import IconArrowRight from '@/components/icons/arrow-right.svg'
+import IconInfo from '@/components/icons/info.svg'
 
 export interface GuideStep {
-  component: Component;
-  title: string;
-  description: string;
-  order: number;
+  component: Component
+  title: string
+  description: string
+  order: number
+  extraComponent?: Component
+  extraTitle?: string
 }
 
 const props = defineProps<{
-  steps: GuideStep[];
-  title?: string;
-  description?: string;
-}>();
+  steps: GuideStep[]
+  title?: string
+  description?: string
+}>()
 
-const currentStep = defineModel<number>({ required: true });
+const currentStep = defineModel<number>({ required: true })
 
-const totalSteps = computed(() => props.steps.length);
-const isFirstStep = computed(() => currentStep.value === 1);
-const isLastStep = computed(() => currentStep.value === totalSteps.value);
-const isDone = computed(() => currentStep.value > totalSteps.value);
-const activeStep = computed(() => props.steps[currentStep.value - 1]);
+const totalSteps = computed(() => props.steps.length)
+const isFirstStep = computed(() => currentStep.value === 1)
+const isLastStep = computed(() => currentStep.value === totalSteps.value)
+const isDone = computed(() => currentStep.value > totalSteps.value)
+const activeStep = computed(() => props.steps[currentStep.value - 1])
 const progress = computed(() =>
   isDone.value ? 100 : ((currentStep.value - 1) / totalSteps.value) * 100,
-);
+)
 
-const slideForward = ref(true);
+const slideForward = ref(true)
+const hasExtra = computed(() => !!activeStep.value?.extraComponent)
 
 function nextStep() {
   if (currentStep.value <= totalSteps.value) {
-    slideForward.value = true;
-    currentStep.value++;
+    slideForward.value = true
+    currentStep.value++
   }
 }
 
 function prevStep() {
   if (currentStep.value > 1) {
-    slideForward.value = false;
-    currentStep.value--;
+    slideForward.value = false
+    currentStep.value--
   }
 }
 
 watch(currentStep, (newVal, oldVal) => {
-  slideForward.value = newVal > oldVal;
-});
+  slideForward.value = newVal > oldVal
+})
 
-const stepperScrollRef = ref<HTMLElement | null>(null);
-const contentScrollRef = ref<HTMLElement | null>(null);
+const stepperScrollRef = ref<HTMLElement | null>(null)
+const contentScrollRef = ref<HTMLElement | null>(null)
 
 function scrollToActiveStep(smooth = true) {
-  const container = stepperScrollRef.value;
-  if (!container) return;
-  const trigger = container.querySelector<HTMLElement>("[data-state=active] button");
-  if (!trigger) return;
-  const containerRect = container.getBoundingClientRect();
-  const triggerRect = trigger.getBoundingClientRect();
+  const container = stepperScrollRef.value
+  if (!container) return
+  const trigger = container.querySelector<HTMLElement>('[data-state=active] button')
+  if (!trigger) return
+  const containerRect = container.getBoundingClientRect()
+  const triggerRect = trigger.getBoundingClientRect()
   const offset =
-    triggerRect.left + triggerRect.width / 2 - containerRect.left - containerRect.width / 2;
+    triggerRect.left + triggerRect.width / 2 - containerRect.left - containerRect.width / 2
   container.scrollTo({
     left: container.scrollLeft + offset,
-    behavior: smooth ? "smooth" : "instant",
-  });
+    behavior: smooth ? 'smooth' : 'instant',
+  })
 }
 
 watch(currentStep, async () => {
-  await nextTick();
-  scrollToActiveStep();
+  await nextTick()
+  scrollToActiveStep()
   if (contentScrollRef.value) {
-    contentScrollRef.value.scrollTop = 0;
+    contentScrollRef.value.scrollTop = 0
   }
-});
+})
 
 onMounted(async () => {
-  await nextTick();
-  scrollToActiveStep(false);
-});
+  await nextTick()
+  scrollToActiveStep(false)
+})
 </script>
 
 <template>
@@ -191,9 +203,34 @@ onMounted(async () => {
       <!-- Content card + navigation -->
       <div v-else key="steps" class="flex min-h-0 flex-1 flex-col gap-3 md:gap-4 lg:gap-6">
         <div class="glass flex min-h-0 flex-1 flex-col overflow-hidden rounded-2xl">
-          <div class="border-b border-glass-border px-5 py-3 md:px-6 md:py-3.5 lg:px-8 lg:py-4">
-            <h3 class="text-lg font-semibold md:text-xl">{{ activeStep?.title }}</h3>
-            <p class="text-sm text-muted-foreground">{{ activeStep?.description }}</p>
+          <div
+            class="flex items-start justify-between border-b border-glass-border px-5 py-3 md:px-6 md:py-3.5 lg:px-8 lg:py-4"
+          >
+            <div>
+              <h3 class="text-lg font-semibold md:text-xl">{{ activeStep?.title }}</h3>
+              <p class="text-sm text-muted-foreground">{{ activeStep?.description }}</p>
+            </div>
+            <BaseDialog v-if="hasExtra" size="large">
+              <BaseDialogTrigger as-child>
+                <BaseButton variant="secondary">
+                  {{ 'Подробнее' }}
+                  <IconInfo class="size-4" />
+                </BaseButton>
+              </BaseDialogTrigger>
+              <BaseDialogScrollContent>
+                <BaseDialogHeader>
+                  <BaseDialogTitle>
+                    {{ activeStep?.extraTitle ?? 'Подробнее' }}
+                  </BaseDialogTitle>
+                  <BaseDialogDescription>
+                    {{ activeStep?.title }}
+                  </BaseDialogDescription>
+                </BaseDialogHeader>
+                <div class="prose">
+                  <component :is="activeStep?.extraComponent" />
+                </div>
+              </BaseDialogScrollContent>
+            </BaseDialog>
           </div>
           <div
             ref="contentScrollRef"
@@ -248,7 +285,7 @@ onMounted(async () => {
 
           <BaseButton size="large" class="gap-1.5" @click="nextStep()">
             <span class="hidden sm:inline">
-              {{ isLastStep ? "Завершить" : "Далее" }}
+              {{ isLastStep ? 'Завершить' : 'Далее' }}
             </span>
             <IconCheck v-if="isLastStep" class="size-4" />
             <IconArrowRight v-else class="size-4" />

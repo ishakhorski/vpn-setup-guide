@@ -5,12 +5,9 @@ export const baseBadgeVariation = cva(
   {
     variants: {
       variant: {
-        primary:
-          'border-primary/20 bg-primary/10 text-primary',
-        secondary:
-          'border-border bg-secondary text-secondary-foreground',
-        outline:
-          'border-border text-muted-foreground',
+        primary: 'border-primary/20 bg-primary/10 text-primary',
+        secondary: 'border-border bg-secondary text-secondary-foreground',
+        outline: 'border-border text-muted-foreground',
       },
       size: {
         small: 'px-2 py-0.5 text-[10px] leading-tight',

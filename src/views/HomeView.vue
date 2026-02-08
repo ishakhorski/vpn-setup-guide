@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import IconWindows from "@/components/icons/windows.svg";
-import IconAndroid from "@/components/icons/android.svg";
-import IconApple from "@/components/icons/apple.svg";
-import IconMessageQuestionMark from "@/components/icons/message-question-mark.svg";
+import IconWindows from '@/components/icons/windows.svg'
+import IconAndroid from '@/components/icons/android.svg'
+import IconApple from '@/components/icons/apple.svg'
+import IconMessageQuestionMark from '@/components/icons/message-question-mark.svg'
 </script>
 
 <template>

@@ -1,48 +1,83 @@
 <script setup lang="ts">
-import { computed, type Component } from "vue";
-import { useRoute } from "vue-router";
-import { useRouteQuery } from "@vueuse/router";
+import { computed, type Component } from 'vue'
+import { useRoute } from 'vue-router'
+import { useRouteQuery } from '@vueuse/router'
 
-import GuideModule from "@/components/GuideModule.vue";
-import { useMarkdownContent } from "@/composables/useMarkdownContent";
+import GuideModule from '@/components/GuideModule.vue'
+import { useMarkdownContent } from '@/composables/useMarkdownContent'
 
 enum Platform {
-  Windows = "windows",
-  Android = "android",
-  Apple = "apple",
+  Windows = 'windows',
+  Android = 'android',
+  Apple = 'apple',
 }
 
 type MarkdownModule = {
-  default: Component;
-  title: string;
-  description: string;
-  order: number;
-};
+  default: Component
+  title: string
+  description: string
+  order: number
+}
+
+type ExtraModule = {
+  default: Component
+  title: string
+  step: number
+}
 
 const guidesMap: Record<string, Record<string, MarkdownModule>> = {
-  [Platform.Windows]: import.meta.glob<MarkdownModule>("@/content/guides/windows/*.md", {
+  [Platform.Windows]: import.meta.glob<MarkdownModule>('@/content/guides/windows/*.md', {
     eager: true,
   }),
-  [Platform.Android]: import.meta.glob<MarkdownModule>("@/content/guides/android/*.md", {
+  [Platform.Android]: import.meta.glob<MarkdownModule>('@/content/guides/android/*.md', {
     eager: true,
   }),
-  [Platform.Apple]: import.meta.glob<MarkdownModule>("@/content/guides/apple/*.md", {
+  [Platform.Apple]: import.meta.glob<MarkdownModule>('@/content/guides/apple/*.md', {
     eager: true,
   }),
-};
+}
+
+const extrasMap: Record<string, Record<string, ExtraModule>> = {
+  [Platform.Windows]: import.meta.glob<ExtraModule>('@/content/guides/windows/extras/*.md', {
+    eager: true,
+  }),
+  [Platform.Android]: import.meta.glob<ExtraModule>('@/content/guides/android/extras/*.md', {
+    eager: true,
+  }),
+  [Platform.Apple]: import.meta.glob<ExtraModule>('@/content/guides/apple/extras/*.md', {
+    eager: true,
+  }),
+}
+
+function buildExtrasLookup(modules: Record<string, ExtraModule>) {
+  const map = new Map<number, { component: Component; title: string }>()
+  for (const mod of Object.values(modules)) {
+    map.set(mod.step, { component: mod.default, title: mod.title })
+  }
+  return map
+}
 
 const platformTitles: Record<string, string> = {
-  [Platform.Windows]: "Windows",
-  [Platform.Android]: "Android",
-  [Platform.Apple]: "macOS / iOS",
-};
+  [Platform.Windows]: 'Windows',
+  [Platform.Android]: 'Android',
+  [Platform.Apple]: 'macOS / iOS',
+}
 
-const route = useRoute();
-const platform = computed(() => route.params.platform as Platform);
-const steps = computed(() => useMarkdownContent(guidesMap[platform.value] ?? {}));
-const platformTitle = computed(() => platformTitles[platform.value] ?? platform.value);
+const route = useRoute()
+const platform = computed(() => route.params.platform as Platform)
 
-const currentStep = useRouteQuery("step", "1", { transform: Number, mode: "replace" });
+const steps = computed(() => {
+  const baseSteps = useMarkdownContent(guidesMap[platform.value] ?? {})
+  const extras = buildExtrasLookup(extrasMap[platform.value] ?? {})
+  return baseSteps.map((step) => {
+    const extra = extras.get(step.order)
+    return extra ? { ...step, extraComponent: extra.component, extraTitle: extra.title } : step
+  })
+})
+
+const platformTitle = computed(() => platformTitles[platform.value] ?? platform.value)
+
+const currentStep = useRouteQuery('step', '1', { transform: Number, mode: 'replace' })
 </script>
 
 <template>
