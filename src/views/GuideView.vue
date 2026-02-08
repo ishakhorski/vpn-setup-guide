@@ -47,18 +47,14 @@ const currentStep = useRouteQuery("step", "1", { transform: Number, mode: "repla
 
 <template>
   <div
-    class="flex w-full max-h-[calc(100dvh-6.5rem)] min-h-0 flex-1 flex-col items-center gap-2 py-1 md:max-h-[calc(100dvh-7.5rem)] md:gap-6 md:py-3"
+    class="flex w-full max-h-[calc(100dvh-6.5rem)] min-h-160 flex-1 flex-col items-center gap-2 py-1 md:max-h-[calc(100dvh-7.5rem)] md:gap-6 md:py-3"
   >
-    <div class="text-center">
-      <h2 class="text-base font-bold tracking-tight md:text-3xl">
-        Настройка для {{ platformTitle }}
-      </h2>
-      <p class="mt-0.5 text-xs text-muted-foreground md:mt-2 md:text-base">
-        Пошаговое руководство по настройке VPN
-      </p>
-    </div>
-
-    <GuideModule v-model="currentStep" :steps="steps" />
+    <GuideModule
+      v-model="currentStep"
+      :steps="steps"
+      :title="`Настройка для ${platformTitle}`"
+      description="Пошаговое руководство по настройке VPN"
+    />
 
     <!-- FAQ link (always visible) -->
     <div class="flex justify-center border-t border-border pt-3 md:pt-6">

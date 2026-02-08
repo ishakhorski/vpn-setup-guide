@@ -17,11 +17,11 @@ No test runner is configured yet.
 
 ## Architecture
 
-Vue 3 + Vite + TypeScript application for VPN setup guides.
+Vue 3 + Vite + TypeScript application for VPN setup guides. UI is in Russian.
 
-- **Routing**: Vue Router (HTML5 history mode) with lazy-loaded views (`/` -> HomeView, `/guide` -> GuideView, `/frequently-asked-questions` -> FaqView)
+- **Routing**: Vue Router (HTML5 history mode) with lazy-loaded views (`/` -> HomeView, `/guide/:platform(windows|android|apple)` -> GuideView, `/frequently-asked-questions` -> FaqView)
 - **Styling**: Tailwind CSS v4 via `@tailwindcss/vite` plugin
-- **Markdown**: `.md` files can be imported as Vue components via `unplugin-vue-markdown`
+- **Markdown**: `.md` files are imported as Vue components via `unplugin-vue-markdown`
 - **SVG**: `.svg` files are imported as Vue components via `vite-svg-loader` (e.g., `import Icon from '@/components/icons/icon.svg'`)
 - **Path alias**: `@/` maps to `src/`
 - **Node requirement**: ^20.19.0 || >=22.12.0
@@ -34,7 +34,17 @@ Compound components (accordion, stepper, switch) use Vue `provide/inject` to sha
 
 ### Content pattern
 
-Markdown content lives in `src/content/` (e.g., `faq/`, `guide/`). Files use YAML frontmatter (title, order) and are loaded via `import.meta.glob` with `eager: true`. Each `.md` file is auto-compiled into a Vue component by `unplugin-vue-markdown`. The `useMarkdownContent` composable (`src/composables/useMarkdownContent.ts`) transforms glob results into a sorted array of `{ component, ...frontmatter }` entries. Markdown is rendered inside a `.prose` container; custom CSS classes `.tip` and `.warning` are available for callout boxes (styled in `src/assets/prose.css`).
+Markdown content lives in `src/content/`. Files use YAML frontmatter and are loaded via `import.meta.glob` with `eager: true`. Each `.md` file is auto-compiled into a Vue component by `unplugin-vue-markdown`. The `useMarkdownContent` composable (`src/composables/useMarkdownContent.ts`) transforms glob results into a sorted array of `{ component, ...frontmatter }` entries. Markdown is rendered inside a `.prose` container; custom CSS classes `.tip` and `.warning` are available for callout boxes (styled in `src/assets/prose.css`).
+
+**Guide content** is organized by platform in `src/content/guides/{windows,android,apple}/`. Each platform directory has its own set of step files. The `GuideView` selects the correct directory based on the `:platform` route param.
+
+**FAQ content** lives in `src/content/faq/`. FAQ entries support a `tags` frontmatter field (string array) displayed as badges.
+
+Frontmatter fields:
+- `title` (required) — display title for the step or FAQ
+- `order` (required) — sort order (ascending)
+- `description` (optional, guides only) — subtitle shown in the step header
+- `tags` (optional, FAQ only) — array of category labels shown as badges
 
 ### Styling entry point
 

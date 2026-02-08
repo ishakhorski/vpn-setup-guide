@@ -23,7 +23,7 @@ const currentFaq = useRouteQuery<string | undefined>("faq", undefined, { mode: "
 
 <template>
   <div class="flex w-full flex-1 flex-col items-center gap-5 py-3 md:gap-8">
-    <div class="text-center">
+    <div class="w-full">
       <h2 class="text-xl font-bold tracking-tight md:text-3xl">Часто задаваемые вопросы</h2>
       <p class="mt-1 text-sm text-muted-foreground md:mt-2 md:text-base">
         Ответы на популярные вопросы о VPN

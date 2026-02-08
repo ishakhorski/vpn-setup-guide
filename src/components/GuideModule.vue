@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed, nextTick, onMounted, ref, watch, type Component } from 'vue'
+import { computed, nextTick, onMounted, ref, watch, type Component } from "vue";
 
-import { BaseButton } from '@/components/base/button'
+import { BaseButton } from "@/components/base/button";
 import {
   BaseStepper,
   BaseStepperItem,
@@ -9,89 +9,105 @@ import {
   BaseStepperIndicator,
   BaseStepperTitle,
   BaseStepperSeparator,
-} from '@/components/base/stepper'
+} from "@/components/base/stepper";
 
-import IconCheck from '@/components/icons/check.svg'
-import IconArrowRight from '@/components/icons/arrow-right.svg'
+import IconCheck from "@/components/icons/check.svg";
+import IconArrowRight from "@/components/icons/arrow-right.svg";
 
 export interface GuideStep {
-  component: Component
-  title: string
-  description: string
-  order: number
+  component: Component;
+  title: string;
+  description: string;
+  order: number;
 }
 
 const props = defineProps<{
-  steps: GuideStep[]
-}>()
+  steps: GuideStep[];
+  title?: string;
+  description?: string;
+}>();
 
-const currentStep = defineModel<number>({ required: true })
+const currentStep = defineModel<number>({ required: true });
 
-const totalSteps = computed(() => props.steps.length)
-const isFirstStep = computed(() => currentStep.value === 1)
-const isLastStep = computed(() => currentStep.value === totalSteps.value)
-const isDone = computed(() => currentStep.value > totalSteps.value)
-const activeStep = computed(() => props.steps[currentStep.value - 1])
+const totalSteps = computed(() => props.steps.length);
+const isFirstStep = computed(() => currentStep.value === 1);
+const isLastStep = computed(() => currentStep.value === totalSteps.value);
+const isDone = computed(() => currentStep.value > totalSteps.value);
+const activeStep = computed(() => props.steps[currentStep.value - 1]);
 const progress = computed(() =>
   isDone.value ? 100 : ((currentStep.value - 1) / totalSteps.value) * 100,
-)
+);
 
-const slideForward = ref(true)
+const slideForward = ref(true);
 
 function nextStep() {
   if (currentStep.value <= totalSteps.value) {
-    slideForward.value = true
-    currentStep.value++
+    slideForward.value = true;
+    currentStep.value++;
   }
 }
 
 function prevStep() {
   if (currentStep.value > 1) {
-    slideForward.value = false
-    currentStep.value--
+    slideForward.value = false;
+    currentStep.value--;
   }
 }
 
 watch(currentStep, (newVal, oldVal) => {
-  slideForward.value = newVal > oldVal
-})
+  slideForward.value = newVal > oldVal;
+});
 
-const stepperScrollRef = ref<HTMLElement | null>(null)
-const contentScrollRef = ref<HTMLElement | null>(null)
+const stepperScrollRef = ref<HTMLElement | null>(null);
+const contentScrollRef = ref<HTMLElement | null>(null);
 
 function scrollToActiveStep(smooth = true) {
-  const container = stepperScrollRef.value
-  if (!container) return
-  const trigger = container.querySelector<HTMLElement>('[data-state=active] button')
-  if (!trigger) return
-  const containerRect = container.getBoundingClientRect()
-  const triggerRect = trigger.getBoundingClientRect()
+  const container = stepperScrollRef.value;
+  if (!container) return;
+  const trigger = container.querySelector<HTMLElement>("[data-state=active] button");
+  if (!trigger) return;
+  const containerRect = container.getBoundingClientRect();
+  const triggerRect = trigger.getBoundingClientRect();
   const offset =
-    triggerRect.left + triggerRect.width / 2 - containerRect.left - containerRect.width / 2
+    triggerRect.left + triggerRect.width / 2 - containerRect.left - containerRect.width / 2;
   container.scrollTo({
     left: container.scrollLeft + offset,
-    behavior: smooth ? 'smooth' : 'instant',
-  })
+    behavior: smooth ? "smooth" : "instant",
+  });
 }
 
 watch(currentStep, async () => {
-  await nextTick()
-  scrollToActiveStep()
+  await nextTick();
+  scrollToActiveStep();
   if (contentScrollRef.value) {
-    contentScrollRef.value.scrollTop = 0
+    contentScrollRef.value.scrollTop = 0;
   }
-})
+});
 
 onMounted(async () => {
-  await nextTick()
-  scrollToActiveStep(false)
-})
+  await nextTick();
+  scrollToActiveStep(false);
+});
 </script>
 
 <template>
   <div class="flex w-full min-h-0 flex-1 flex-col gap-2 md:gap-6">
     <!-- Scrollable stepper -->
-    <div class="relative">
+    <div class="relative flex items-center">
+      <div v-if="props.title || props.description">
+        <h2
+          v-if="props.title"
+          class="text-base font-bold whitespace-nowrap tracking-tight md:text-3xl"
+        >
+          {{ props.title }}
+        </h2>
+        <p
+          v-if="props.description"
+          class="mt-0.5 text-xs text-muted-foreground md:mt-2 md:text-base"
+        >
+          {{ props.description }}
+        </p>
+      </div>
       <div ref="stepperScrollRef" class="stepper-scroll overflow-x-auto">
         <BaseStepper
           v-model="currentStep"
@@ -105,7 +121,7 @@ onMounted(async () => {
             >
               <template #default="{ state }">
                 <BaseStepperTrigger
-                  class="max-w-24 cursor-pointer transition-opacity duration-200 md:max-w-28"
+                  class="flex-row gap-2 max-w-28 cursor-pointer transition-opacity duration-200 md:max-w-36"
                   :class="[
                     state === 'active'
                       ? 'opacity-100'
@@ -126,7 +142,7 @@ onMounted(async () => {
                     <IconCheck v-if="state === 'completed'" class="size-4" />
                     <span v-else>{{ step.order }}</span>
                   </BaseStepperIndicator>
-                  <BaseStepperTitle class="hidden md:block">
+                  <BaseStepperTitle class="hidden md:block text-left">
                     {{ step.title }}
                   </BaseStepperTitle>
                 </BaseStepperTrigger>
@@ -204,7 +220,7 @@ onMounted(async () => {
         </div>
 
         <!-- Step navigation -->
-        <div class="flex items-center justify-between">
+        <div class="relative flex items-center justify-between">
           <BaseButton
             variant="secondary"
             size="large"
@@ -216,14 +232,23 @@ onMounted(async () => {
             <span class="hidden sm:inline">Назад</span>
           </BaseButton>
 
-          <div class="flex items-center justify-center gap-2 text-sm text-muted-foreground">
-            <span>{{ isDone ? 'Готово!' : `Шаг ${currentStep} из ${totalSteps}` }}</span>
-            <span class="font-medium text-primary">{{ Math.round(progress) }}%</span>
+          <div
+            class="absolute inset-x-0 top-1/2 mx-auto flex w-32 -translate-y-1/2 items-center gap-2 sm:w-40 md:w-48"
+          >
+            <div class="h-1.5 flex-1 overflow-hidden rounded-full bg-muted md:h-2">
+              <div
+                class="h-full rounded-full bg-primary transition-[width] duration-300 ease-out"
+                :style="{ width: `${progress}%` }"
+              />
+            </div>
+            <span class="text-xs tabular-nums text-muted-foreground">
+              {{ currentStep }}/{{ totalSteps }}
+            </span>
           </div>
 
           <BaseButton size="large" class="gap-1.5" @click="nextStep()">
             <span class="hidden sm:inline">
-              {{ isLastStep ? 'Завершить' : 'Далее' }}
+              {{ isLastStep ? "Завершить" : "Далее" }}
             </span>
             <IconCheck v-if="isLastStep" class="size-4" />
             <IconArrowRight v-else class="size-4" />
