@@ -57,18 +57,21 @@ src/
 ├── composables/         # useTheme, useMarkdownContent
 ├── content/
 │   ├── faq/             # FAQ markdown files
-│   └── guide/           # Guide step markdown files
+│   └── guides/          # Guide step markdown files
+│       ├── windows/
+│       ├── android/
+│       └── apple/
 ├── router/              # Vue Router config
 └── views/               # Page components (Home, Guide, FAQ)
 ```
 
 ## Pages
 
-| Route                       | View            | Description                            |
-| --------------------------- | --------------- | -------------------------------------- |
-| `/`                         | `HomeView`      | Landing page with navigation cards     |
-| `/guide`                    | `GuideView`     | Interactive stepper with guide content |
-| `/frequently-asked-questions` | `FaqView`     | Accordion-based FAQ                    |
+| Route                                      | View        | Description                            |
+| ------------------------------------------ | ----------- | -------------------------------------- |
+| `/`                                        | `HomeView`  | Landing page with navigation cards     |
+| `/guide/:platform(windows\|android\|apple)` | `GuideView` | Interactive stepper with guide content |
+| `/frequently-asked-questions`              | `FaqView`   | Accordion-based FAQ                    |
 
 ## Markdown Content System
 
@@ -102,8 +105,8 @@ Content is written as Markdown files with YAML frontmatter and rendered as Vue c
 
    ```ts
    const steps = useMarkdownContent(
-     import.meta.glob<{ default: Component; title: string; order: number }>(
-       '@/content/guide/*.md',
+     import.meta.glob<MarkdownModule>(
+       '@/content/guides/windows/*.md',
        { eager: true },
      ),
    )
@@ -114,26 +117,27 @@ Content is written as Markdown files with YAML frontmatter and rendered as Vue c
 
 ### Frontmatter fields
 
-| Field         | Required | Used in | Description                        |
-| ------------- | -------- | ------- | ---------------------------------- |
-| `title`       | yes      | both    | Display title for the step or FAQ  |
-| `order`       | yes      | both    | Sort order (ascending)             |
-| `description` | no       | guide   | Subtitle shown in the step header  |
+| Field         | Required | Used in | Description                              |
+| ------------- | -------- | ------- | ---------------------------------------- |
+| `title`       | yes      | both    | Display title for the step or FAQ        |
+| `order`       | yes      | both    | Sort order (ascending)                   |
+| `description` | no       | guide   | Subtitle shown in the step header        |
+| `tags`        | no       | FAQ     | Array of category labels shown as badges |
 
 ### File naming convention
 
 Files are prefixed with a two-digit number for readability, though sorting is determined by the `order` frontmatter field:
 
 ```
-src/content/guide/01-get-config.md
-src/content/guide/02-install-client.md
-src/content/faq/01-what-is-vless.md
-src/content/faq/02-supported-platforms.md
+src/content/guides/windows/01-get-config.md
+src/content/guides/windows/02-install-client.md
+src/content/faq/01-speed.md
+src/content/faq/02-check-vpn.md
 ```
 
 ### Adding new content
 
-**Add a guide step** &mdash; create a new `.md` file in `src/content/guide/`:
+**Add a guide step** &mdash; create a new `.md` file in `src/content/guides/<platform>/`:
 
 ```markdown
 ---
@@ -151,6 +155,7 @@ Step content here...
 ---
 title: Your question here?
 order: 6
+tags: [компьютер, телефон]
 ---
 
 Answer content here...
