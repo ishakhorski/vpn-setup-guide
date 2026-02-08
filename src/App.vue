@@ -24,7 +24,7 @@ const { isDark } = useTheme()
 
     <header class="glass sticky top-0 z-50">
       <div
-        class="container mx-auto flex items-center justify-between px-6 py-2.5 md:px-10 md:py-3.5 lg:px-12 lg:py-4"
+        class="container mx-auto flex items-center justify-between px-5 py-2.5 md:px-6 md:py-3 lg:px-8 lg:py-3.5"
       >
         <RouterLink
           to="/"
@@ -36,7 +36,7 @@ const { isDark } = useTheme()
       </div>
     </header>
 
-    <main class="container mx-auto flex flex-1 flex-col p-6 md:px-8 lg:px-10">
+    <main class="container mx-auto flex flex-1 flex-col px-5 py-6 md:px-6 lg:px-8">
       <RouterView />
     </main>
   </div>

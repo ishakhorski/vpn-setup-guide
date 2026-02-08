@@ -11,7 +11,7 @@
   --secondary: oklch(0.96 0.001 286.375);
   --secondary-foreground: oklch(0.21 0.006 285.885);
   --muted: oklch(0.96 0.001 286.375);
-  --muted-foreground: oklch(0.45 0.016 285.938);
+  --muted-foreground: oklch(0.40 0.016 285.938);
   --accent: oklch(0.96 0.001 286.375);
   --accent-foreground: oklch(0.21 0.006 285.885);
   --destructive: oklch(0.577 0.245 27.325);
@@ -19,14 +19,15 @@
   --input: oklch(0.9 0.004 286.32);
   --ring: oklch(0.702 0.183 293.541);
 
-  --glass-bg: oklch(1 0 0 / 70%);
+  --glass-bg: oklch(1 0 0 / 82%);
   --glass-border: oklch(0 0 0 / 8%);
-  --glass-shadow: oklch(0.141 0.005 285.823 / 8%);
+  --glass-shadow: oklch(0.141 0.005 285.823 / 5%);
   --glass-highlight: oklch(1 0 0 / 10%);
+  --glass-hover-shadow: oklch(0.141 0.005 285.823 / 12%);
 
-  --orb-primary: oklch(0.65 0.25 293 / 30%);
-  --orb-secondary: oklch(0.7 0.15 250 / 25%);
-  --orb-tertiary: oklch(0.75 0.2 320 / 20%);
+  --orb-primary: oklch(0.65 0.25 293 / 25%);
+  --orb-secondary: oklch(0.7 0.15 250 / 20%);
+  --orb-tertiary: oklch(0.75 0.2 320 / 15%);
 
   --tip-bg: oklch(0.541 0.281 293.009 / 8%);
   --tip-border: oklch(0.541 0.281 293.009 / 20%);
@@ -46,7 +47,7 @@
   --secondary: oklch(0.274 0.006 286.033);
   --secondary-foreground: oklch(0.985 0 0);
   --muted: oklch(0.274 0.006 286.033);
-  --muted-foreground: oklch(0.65 0.015 286.067);
+  --muted-foreground: oklch(0.70 0.015 286.067);
   --accent: oklch(0.274 0.006 286.033);
   --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.704 0.191 22.216);
@@ -54,10 +55,11 @@
   --input: oklch(1 0 0 / 18%);
   --ring: oklch(0.38 0.189 293.745);
 
-  --glass-bg: oklch(0.21 0.006 285.885 / 50%);
+  --glass-bg: oklch(0.21 0.006 285.885 / 72%);
   --glass-border: oklch(1 0 0 / 14%);
-  --glass-shadow: oklch(0 0 0 / 30%);
+  --glass-shadow: oklch(0 0 0 / 20%);
   --glass-highlight: oklch(1 0 0 / 8%);
+  --glass-hover-shadow: oklch(0 0 0 / 35%);
 
   --orb-primary: oklch(0.5 0.3 293 / 25%);
   --orb-secondary: oklch(0.55 0.2 250 / 20%);
@@ -94,6 +96,7 @@
   --color-glass-border: var(--glass-border);
   --color-glass-shadow: var(--glass-shadow);
   --color-glass-highlight: var(--glass-highlight);
+  --color-glass-hover-shadow: var(--glass-hover-shadow);
 
   --color-orb-primary: var(--orb-primary);
   --color-orb-secondary: var(--orb-secondary);

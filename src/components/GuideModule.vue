@@ -91,19 +91,19 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="flex w-full min-h-0 flex-1 flex-col gap-2 md:gap-6">
+  <div class="flex w-full min-h-0 flex-1 flex-col gap-3 md:gap-4 lg:gap-6">
     <!-- Scrollable stepper -->
     <div class="relative flex items-center">
       <div v-if="props.title || props.description">
         <h2
           v-if="props.title"
-          class="text-base font-bold whitespace-nowrap tracking-tight md:text-3xl"
+          class="text-base font-bold whitespace-nowrap tracking-tight md:text-xl lg:text-2xl"
         >
           {{ props.title }}
         </h2>
         <p
           v-if="props.description"
-          class="mt-0.5 text-xs text-muted-foreground md:mt-2 md:text-base"
+          class="mt-0.5 text-xs text-muted-foreground md:mt-1 md:text-sm lg:mt-2 lg:text-base"
         >
           {{ props.description }}
         </p>
@@ -127,7 +127,7 @@ onMounted(async () => {
                       ? 'opacity-100'
                       : state === 'completed'
                         ? 'opacity-100'
-                        : 'opacity-40 hover:opacity-70',
+                        : 'opacity-60 hover:opacity-80',
                   ]"
                 >
                   <BaseStepperIndicator
@@ -167,9 +167,9 @@ onMounted(async () => {
       leave-from-class="translate-x-0 opacity-100"
     >
       <!-- Done state -->
-      <div v-if="isDone" key="done" class="flex flex-col gap-2 md:gap-6">
+      <div v-if="isDone" key="done" class="flex flex-col gap-3 md:gap-4 lg:gap-6">
         <div class="glass overflow-hidden rounded-2xl">
-          <div class="flex flex-col items-center gap-4 p-6 text-center md:p-12">
+          <div class="flex flex-col items-center gap-4 p-6 text-center md:p-8 lg:p-10">
             <div
               class="flex size-16 items-center justify-center rounded-full bg-primary/10 md:size-20"
             >
@@ -189,15 +189,15 @@ onMounted(async () => {
       </div>
 
       <!-- Content card + navigation -->
-      <div v-else key="steps" class="flex min-h-0 flex-1 flex-col gap-2 md:gap-6">
+      <div v-else key="steps" class="flex min-h-0 flex-1 flex-col gap-3 md:gap-4 lg:gap-6">
         <div class="glass flex min-h-0 flex-1 flex-col overflow-hidden rounded-2xl">
-          <div class="border-b border-glass-border px-5 py-3 md:px-8 md:py-4">
+          <div class="border-b border-glass-border px-5 py-3 md:px-6 md:py-3.5 lg:px-8 lg:py-4">
             <h3 class="text-lg font-semibold md:text-xl">{{ activeStep?.title }}</h3>
             <p class="text-sm text-muted-foreground">{{ activeStep?.description }}</p>
           </div>
           <div
             ref="contentScrollRef"
-            class="min-h-0 flex-1 overflow-x-hidden overflow-y-auto p-5 md:p-8"
+            class="min-h-0 flex-1 overflow-x-hidden overflow-y-auto p-5 md:p-6 lg:p-8"
           >
             <Transition
               mode="out-in"
@@ -233,9 +233,9 @@ onMounted(async () => {
           </BaseButton>
 
           <div
-            class="absolute inset-x-0 top-1/2 mx-auto flex w-32 -translate-y-1/2 items-center gap-2 sm:w-40 md:w-48"
+            class="absolute inset-x-0 top-1/2 mx-auto flex w-32 -translate-y-1/2 flex-col items-center gap-1 sm:w-40 md:w-48"
           >
-            <div class="h-1.5 flex-1 overflow-hidden rounded-full bg-muted md:h-2">
+            <div class="h-1.5 w-full overflow-hidden rounded-full bg-muted md:h-2">
               <div
                 class="h-full rounded-full bg-primary transition-[width] duration-300 ease-out"
                 :style="{ width: `${progress}%` }"

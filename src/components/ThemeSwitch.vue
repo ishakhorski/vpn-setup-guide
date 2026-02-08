@@ -7,7 +7,7 @@ const isDark = defineModel<boolean>({ required: true })
 </script>
 
 <template>
-  <BaseSwitch v-model="isDark" size="large">
+  <BaseSwitch v-model="isDark" size="large" aria-label="Переключить тему">
     <template #thumb>
       <IconMoon v-if="isDark" class="size-4" />
       <IconSun v-else class="size-4" />

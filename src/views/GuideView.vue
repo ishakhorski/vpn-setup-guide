@@ -47,7 +47,7 @@ const currentStep = useRouteQuery("step", "1", { transform: Number, mode: "repla
 
 <template>
   <div
-    class="flex w-full max-h-[calc(100dvh-6.5rem)] min-h-160 flex-1 flex-col items-center gap-2 py-1 md:max-h-[calc(100dvh-7.5rem)] md:gap-6 md:py-3"
+    class="flex w-full max-h-[calc(100dvh-6.5rem)] min-h-160 flex-1 flex-col items-center gap-3 py-2 md:max-h-[calc(100dvh-7.5rem)] md:gap-4 md:py-3 lg:gap-6"
   >
     <GuideModule
       v-model="currentStep"
@@ -57,10 +57,10 @@ const currentStep = useRouteQuery("step", "1", { transform: Number, mode: "repla
     />
 
     <!-- FAQ link (always visible) -->
-    <div class="flex justify-center border-t border-border pt-3 md:pt-6">
+    <div class="flex justify-center border-t border-border pt-3 md:pt-4 lg:pt-6">
       <RouterLink
         to="/frequently-asked-questions"
-        class="text-xs text-muted-foreground transition-colors hover:text-primary md:text-sm"
+        class="text-xs text-muted-foreground rounded-md outline-none transition-colors hover:text-primary focus-visible:ring-[3px] focus-visible:ring-ring/50 md:text-sm"
       >
         Остались вопросы?
         <span class="font-medium underline underline-offset-4">Перейти к вопросам на ответы</span>

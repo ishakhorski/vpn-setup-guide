@@ -22,9 +22,9 @@ const currentFaq = useRouteQuery<string | undefined>("faq", undefined, { mode: "
 </script>
 
 <template>
-  <div class="flex w-full flex-1 flex-col items-center gap-5 py-3 md:gap-8">
+  <div class="flex w-full flex-1 flex-col items-center gap-4 py-3 md:gap-6 lg:gap-8">
     <div class="w-full">
-      <h2 class="text-xl font-bold tracking-tight md:text-3xl">Часто задаваемые вопросы</h2>
+      <h2 class="text-xl font-bold tracking-tight md:text-2xl lg:text-3xl">Часто задаваемые вопросы</h2>
       <p class="mt-1 text-sm text-muted-foreground md:mt-2 md:text-base">
         Ответы на популярные вопросы о VPN
       </p>
@@ -58,7 +58,7 @@ const currentFaq = useRouteQuery<string | undefined>("faq", undefined, { mode: "
     </BaseAccordion>
 
     <div class="w-full flex justify-center border-t border-border pt-6">
-      <RouterLink to="/" class="text-sm text-muted-foreground transition-colors hover:text-primary">
+      <RouterLink to="/" class="text-sm text-muted-foreground rounded-md outline-none transition-colors hover:text-primary focus-visible:ring-[3px] focus-visible:ring-ring/50">
         Нужна помощь с настройкой?
         <span class="font-medium underline underline-offset-4">Перейти к руководствам</span>
       </RouterLink>
