@@ -21,12 +21,10 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const props = defineProps<
-  DialogContentProps & { class?: HTMLAttributes['class']; showCloseButton?: boolean }
->()
+const props = defineProps<DialogContentProps & { class?: HTMLAttributes['class'] }>()
 const emits = defineEmits<DialogContentEmits>()
 
-const delegatedProps = reactiveOmit(props, 'class', 'showCloseButton')
+const delegatedProps = reactiveOmit(props, 'class')
 
 const forwarded = useForwardPropsEmits(delegatedProps, emits)
 </script>
@@ -40,7 +38,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits)
     >
       <slot />
 
-      <DialogClose v-if="showCloseButton ?? true" :class="baseSheetCloseButtonVariation()">
+      <DialogClose :class="baseSheetCloseButtonVariation()">
         <IconClose class="size-5" />
         <span class="sr-only">Close</span>
       </DialogClose>

@@ -6,18 +6,18 @@ import {
   BaseStepperIndicator,
   BaseStepperTitle,
   BaseStepperSeparator,
-} from "@/components/base/stepper";
+} from '@/components/base/stepper'
 
-import IconCheck from "@/components/icons/check.svg";
+import IconCheck from '@/components/icons/check.svg'
 
 const props = defineProps<{
   steps: {
-    title: string;
-    order: number;
-  }[];
-}>();
+    title: string
+    order: number
+  }[]
+}>()
 
-const currentStep = defineModel<number>({ required: true });
+const currentStep = defineModel<number>({ required: true })
 </script>
 
 <template>

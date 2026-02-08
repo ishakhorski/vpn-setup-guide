@@ -58,15 +58,15 @@ const props = defineProps<{
       </BaseButton>
     </BaseSheetTrigger>
     <BaseSheetContent>
-      <BaseSheetHeader>
-        <BaseSheetTitle>
+      <BaseSheetHeader class="pr-5">
+        <BaseSheetTitle class="text-left">
           {{ props.title }}
         </BaseSheetTitle>
-        <BaseSheetDescription>
+        <BaseSheetDescription class="text-left">
           {{ props.title }}
         </BaseSheetDescription>
       </BaseSheetHeader>
-      <div class="prose px-6 pb-8">
+      <div class="prose">
         <component :is="props.component" />
       </div>
     </BaseSheetContent>

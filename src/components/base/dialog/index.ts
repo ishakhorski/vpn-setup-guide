@@ -48,7 +48,7 @@ export const baseDialogTitleVariation = cva('text-lg font-semibold leading-none 
 export const baseDialogDescriptionVariation = cva('text-sm text-muted-foreground')
 
 export const baseDialogCloseButtonVariation = cva(
-  'absolute top-4 right-4 rounded-md p-1 opacity-70 outline-none transition-opacity hover:opacity-100 focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*=size-])]:size-4',
+  'absolute top-4 right-4 rounded-md p-1 opacity-70 outline-none transition-opacity cursor-pointer hover:opacity-100 focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*=size-])]:size-4',
 )
 
 export { default as BaseDialog } from './BaseDialog.vue'

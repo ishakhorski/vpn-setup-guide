@@ -5,11 +5,11 @@ export const baseSheetOverlayVariation = cva(
 )
 
 export const baseSheetContentVariation = cva(
-  'fixed z-50 flex flex-col gap-4 glass rounded-t-2xl p-6 shadow-lg transition ease-in-out inset-x-0 bottom-0 max-h-[85vh] overflow-y-auto data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom data-[state=closed]:duration-300 data-[state=open]:duration-500',
+  'fixed z-50 grid gap-4 glass rounded-t-2xl p-6 shadow-lg inset-x-0 bottom-0 max-h-[85vh] overflow-y-auto data-[state=open]:animate-sheet-content-in data-[state=closed]:animate-sheet-content-out',
   {
     variants: {
       variant: {
-        default: '',
+        default: 'max-w-full sm:max-w-lg sm:mx-auto',
       },
     },
     defaultVariants: {
@@ -19,16 +19,18 @@ export const baseSheetContentVariation = cva(
 )
 export type BaseSheetContentVariation = VariantProps<typeof baseSheetContentVariation>
 
-export const baseSheetHeaderVariation = cva('flex flex-col gap-1.5 px-6 pt-6')
+export const baseSheetHeaderVariation = cva('flex flex-col gap-1.5 text-center sm:text-left')
 
-export const baseSheetFooterVariation = cva('mt-auto flex flex-col gap-2 px-6 pb-6')
+export const baseSheetFooterVariation = cva(
+  'flex flex-col-reverse gap-2 sm:flex-row sm:justify-end',
+)
 
 export const baseSheetTitleVariation = cva('text-lg font-semibold leading-none tracking-tight')
 
 export const baseSheetDescriptionVariation = cva('text-sm text-muted-foreground')
 
 export const baseSheetCloseButtonVariation = cva(
-  'absolute top-4 right-4 rounded-md p-1 opacity-70 outline-none transition-opacity hover:opacity-100 focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*=size-])]:size-4',
+  'absolute top-4 right-4 rounded-md p-1 opacity-70 outline-none transition-opacity cursor-pointer hover:opacity-100 focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*=size-])]:size-4',
 )
 
 export { default as BaseSheet } from './BaseSheet.vue'

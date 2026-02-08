@@ -52,13 +52,17 @@ Formatting is handled by [oxfmt](https://oxc.rs/) (not Prettier) &mdash; no semi
 src/
 ├── assets/              # CSS: Tailwind entry, theme tokens, prose styles
 ├── components/
-│   ├── base/            # Headless UI wrappers (accordion, button, stepper, switch)
-│   └── icons/           # SVG icons (imported as Vue components)
+│   ├── base/            # Headless UI wrappers (accordion, badge, button, dialog, sheet, stepper, switch)
+│   ├── icons/           # SVG icons (imported as Vue components)
+│   ├── GuideModule.vue  # Guide container with step navigation and extras dialog
+│   └── ThemeSwitch.vue  # Dark/light mode toggle
 ├── composables/         # useTheme, useMarkdownContent
 ├── content/
 │   ├── faq/             # FAQ markdown files
+│   ├── images/          # Platform-specific setup screenshots
 │   └── guides/          # Guide step markdown files
 │       ├── windows/
+│       │   └── extras/  # Supplementary content for steps
 │       ├── android/
 │       └── apple/
 ├── router/              # Vue Router config
@@ -123,6 +127,7 @@ Content is written as Markdown files with YAML frontmatter and rendered as Vue c
 | `order`       | yes      | both    | Sort order (ascending)                   |
 | `description` | no       | guide   | Subtitle shown in the step header        |
 | `tags`        | no       | FAQ     | Array of category labels shown as badges |
+| `step`        | yes      | extras  | Step number this extra content belongs to |
 
 ### File naming convention
 
@@ -131,6 +136,7 @@ Files are prefixed with a two-digit number for readability, though sorting is de
 ```
 src/content/guides/windows/01-get-config.md
 src/content/guides/windows/02-install-client.md
+src/content/guides/windows/extras/05-routing-details.md
 src/content/faq/01-speed.md
 src/content/faq/02-check-vpn.md
 ```
@@ -162,6 +168,19 @@ Answer content here...
 ```
 
 No router or view changes are needed. Files are discovered automatically via `import.meta.glob`.
+
+**Add guide extras** &mdash; create a new `.md` file in `src/content/guides/<platform>/extras/`:
+
+```markdown
+---
+title: Extra content title
+step: 5
+---
+
+Additional details for step 5...
+```
+
+Extras are supplementary content linked to specific steps. When a step has extras, an info button appears that opens the content in a dialog.
 
 ### Custom callout classes
 

@@ -111,4 +111,9 @@
   --animate-dialog-content-out: dialog-content-out 0.15s ease-in;
   --animate-dialog-scroll-content-in: dialog-scroll-content-in 0.2s ease-out;
   --animate-dialog-scroll-content-out: dialog-scroll-content-out 0.15s ease-in;
+
+  --animate-sheet-overlay-in: sheet-overlay-in 0.2s ease-out;
+  --animate-sheet-overlay-out: sheet-overlay-out 0.15s ease-in;
+  --animate-sheet-content-in: sheet-content-in 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+  --animate-sheet-content-out: sheet-content-out 0.2s cubic-bezier(0.32, 0.72, 0, 1);
 }
