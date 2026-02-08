@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { inject, type HTMLAttributes } from 'vue'
+import { type HTMLAttributes } from 'vue'
 import { reactiveOmit } from '@vueuse/core'
 import { twMerge } from 'tailwind-merge'
 
@@ -17,7 +17,6 @@ import IconClose from '@/components/icons/close.svg'
 
 import {
   baseDialogCloseButtonVariation,
-  baseDialogContextKey,
   baseDialogScrollContentVariation,
   baseDialogScrollOverlayVariation,
 } from './index'
@@ -39,17 +38,13 @@ const emits = defineEmits<DialogContentEmits>()
 const delegatedProps = reactiveOmit(props, 'class', 'showCloseButton')
 
 const forwarded = useForwardPropsEmits(delegatedProps, emits)
-
-const context = inject(baseDialogContextKey, undefined)
 </script>
 
 <template>
   <DialogPortal>
     <DialogOverlay :class="baseDialogScrollOverlayVariation()">
       <DialogContent
-        :class="
-          twMerge(baseDialogScrollContentVariation({ size: context?.size.value }), props.class)
-        "
+        :class="twMerge(baseDialogScrollContentVariation(), props.class)"
         v-bind="{ ...$attrs, ...forwarded }"
         @pointer-down-outside="
           (event) => {

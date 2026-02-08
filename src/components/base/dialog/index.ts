@@ -1,13 +1,4 @@
-import type { ComputedRef, InjectionKey } from 'vue'
 import { cva, type VariantProps } from 'class-variance-authority'
-
-export type BaseDialogSize = 'small' | 'medium' | 'large'
-
-export interface BaseDialogContext {
-  size: ComputedRef<BaseDialogSize | undefined>
-}
-
-export const baseDialogContextKey: InjectionKey<BaseDialogContext> = Symbol('BaseDialogContext')
 
 export const baseDialogOverlayVariation = cva(
   'fixed inset-0 z-50 bg-black/40 backdrop-blur-sm data-[state=open]:animate-dialog-overlay-in data-[state=closed]:animate-dialog-overlay-out',
@@ -17,14 +8,12 @@ export const baseDialogContentVariation = cva(
   'fixed top-1/2 left-1/2 z-50 grid w-full -translate-x-1/2 -translate-y-1/2 gap-4 glass rounded-2xl p-6 shadow-lg data-[state=open]:animate-dialog-content-in data-[state=closed]:animate-dialog-content-out',
   {
     variants: {
-      size: {
-        small: 'max-w-[calc(100%-2rem)] sm:max-w-md',
-        medium: 'max-w-[calc(100%-2rem)] sm:max-w-lg',
-        large: 'max-w-[calc(100%-2rem)] sm:max-w-2xl',
+      variant: {
+        default: 'max-w-[calc(100%-2rem)] sm:max-w-lg',
       },
     },
     defaultVariants: {
-      size: 'medium',
+      variant: 'default',
     },
   },
 )
@@ -38,14 +27,12 @@ export const baseDialogScrollContentVariation = cva(
   'relative z-50 my-4 grid w-full gap-4 glass rounded-2xl p-6 shadow-lg sm:my-8 data-[state=open]:animate-dialog-scroll-content-in data-[state=closed]:animate-dialog-scroll-content-out',
   {
     variants: {
-      size: {
-        small: 'max-w-md',
-        medium: 'max-w-lg',
-        large: 'max-w-2xl',
+      variant: {
+        default: 'max-w-280',
       },
     },
     defaultVariants: {
-      size: 'medium',
+      variant: 'default',
     },
   },
 )

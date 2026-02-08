@@ -2,26 +2,12 @@
 import { computed, nextTick, onMounted, ref, watch, type Component } from 'vue'
 
 import { BaseButton } from '@/components/base/button'
-import {
-  BaseStepper,
-  BaseStepperItem,
-  BaseStepperTrigger,
-  BaseStepperIndicator,
-  BaseStepperTitle,
-  BaseStepperSeparator,
-} from '@/components/base/stepper'
-import {
-  BaseDialog,
-  BaseDialogTrigger,
-  BaseDialogScrollContent,
-  BaseDialogHeader,
-  BaseDialogTitle,
-  BaseDialogDescription,
-} from '@/components/base/dialog'
 
 import IconCheck from '@/components/icons/check.svg'
 import IconArrowRight from '@/components/icons/arrow-right.svg'
-import IconInfo from '@/components/icons/info.svg'
+
+import GuideModuleStepper from '@/components/GuideModuleStepper.vue'
+import GuideModuleDialog from '@/components/GuideModuleDialog.vue'
 
 export interface GuideStep {
   component: Component
@@ -50,7 +36,6 @@ const progress = computed(() =>
 )
 
 const slideForward = ref(true)
-const hasExtra = computed(() => !!activeStep.value?.extraComponent)
 
 function nextStep() {
   if (currentStep.value <= totalSteps.value) {
@@ -120,52 +105,9 @@ onMounted(async () => {
           {{ props.description }}
         </p>
       </div>
+
       <div ref="stepperScrollRef" class="stepper-scroll overflow-x-auto">
-        <BaseStepper
-          v-model="currentStep"
-          :linear="false"
-          class="flex min-w-max items-center px-[calc(50%-1rem)] md:px-[calc(50%-3rem)]"
-        >
-          <template v-for="(step, index) in steps" :key="step.order">
-            <BaseStepperItem
-              :step="step.order"
-              :class="index < steps.length - 1 ? 'flex-1' : 'flex-shrink-0'"
-            >
-              <template #default="{ state }">
-                <BaseStepperTrigger
-                  class="flex-row gap-2 max-w-28 cursor-pointer transition-opacity duration-200 md:max-w-36"
-                  :class="[
-                    state === 'active'
-                      ? 'opacity-100'
-                      : state === 'completed'
-                        ? 'opacity-100'
-                        : 'opacity-60 hover:opacity-80',
-                  ]"
-                >
-                  <BaseStepperIndicator
-                    :class="
-                      state === 'active'
-                        ? 'ring-[3px] ring-primary/30'
-                        : state === 'completed'
-                          ? 'ring-[3px] ring-accent/30'
-                          : ''
-                    "
-                  >
-                    <IconCheck v-if="state === 'completed'" class="size-4" />
-                    <span v-else>{{ step.order }}</span>
-                  </BaseStepperIndicator>
-                  <BaseStepperTitle class="hidden md:block text-left">
-                    {{ step.title }}
-                  </BaseStepperTitle>
-                </BaseStepperTrigger>
-                <BaseStepperSeparator
-                  v-if="index < steps.length - 1"
-                  class="mx-2 h-0.5 min-w-6 flex-1 rounded-full md:min-w-10 lg:mx-3"
-                />
-              </template>
-            </BaseStepperItem>
-          </template>
-        </BaseStepper>
+        <GuideModuleStepper v-model="currentStep" :steps="props.steps" />
       </div>
     </div>
 
@@ -210,27 +152,12 @@ onMounted(async () => {
               <h3 class="text-lg font-semibold md:text-xl">{{ activeStep?.title }}</h3>
               <p class="text-sm text-muted-foreground">{{ activeStep?.description }}</p>
             </div>
-            <BaseDialog v-if="hasExtra" size="large">
-              <BaseDialogTrigger as-child>
-                <BaseButton variant="secondary">
-                  {{ 'Подробнее' }}
-                  <IconInfo class="size-4" />
-                </BaseButton>
-              </BaseDialogTrigger>
-              <BaseDialogScrollContent>
-                <BaseDialogHeader>
-                  <BaseDialogTitle>
-                    {{ activeStep?.extraTitle ?? 'Подробнее' }}
-                  </BaseDialogTitle>
-                  <BaseDialogDescription>
-                    {{ activeStep?.title }}
-                  </BaseDialogDescription>
-                </BaseDialogHeader>
-                <div class="prose">
-                  <component :is="activeStep?.extraComponent" />
-                </div>
-              </BaseDialogScrollContent>
-            </BaseDialog>
+
+            <GuideModuleDialog
+              v-if="activeStep?.extraComponent"
+              :title="activeStep?.extraTitle ?? 'Дополнительная информация'"
+              :component="activeStep.extraComponent"
+            />
           </div>
           <div
             ref="contentScrollRef"

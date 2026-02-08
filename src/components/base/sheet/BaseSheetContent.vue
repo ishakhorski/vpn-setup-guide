@@ -14,21 +14,16 @@ import {
 
 import IconClose from '@/components/icons/close.svg'
 
-import BaseDialogOverlay from './BaseDialogOverlay.vue'
-import { baseDialogCloseButtonVariation, baseDialogContentVariation } from './index'
+import BaseSheetOverlay from './BaseSheetOverlay.vue'
+import { baseSheetCloseButtonVariation, baseSheetContentVariation } from './index'
 
 defineOptions({
   inheritAttrs: false,
 })
 
-const props = withDefaults(
-  defineProps<
-    DialogContentProps & { class?: HTMLAttributes['class']; showCloseButton?: boolean }
-  >(),
-  {
-    showCloseButton: true,
-  },
-)
+const props = defineProps<
+  DialogContentProps & { class?: HTMLAttributes['class']; showCloseButton?: boolean }
+>()
 const emits = defineEmits<DialogContentEmits>()
 
 const delegatedProps = reactiveOmit(props, 'class', 'showCloseButton')
@@ -38,14 +33,14 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits)
 
 <template>
   <DialogPortal>
-    <BaseDialogOverlay />
+    <BaseSheetOverlay />
     <DialogContent
       v-bind="{ ...$attrs, ...forwarded }"
-      :class="twMerge(baseDialogContentVariation(), props.class)"
+      :class="twMerge(baseSheetContentVariation(), props.class)"
     >
       <slot />
 
-      <DialogClose v-if="showCloseButton" :class="baseDialogCloseButtonVariation()">
+      <DialogClose v-if="showCloseButton ?? true" :class="baseSheetCloseButtonVariation()">
         <IconClose class="size-5" />
         <span class="sr-only">Close</span>
       </DialogClose>
