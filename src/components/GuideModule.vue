@@ -16,6 +16,7 @@ export interface GuideStep {
   order: number
   extraComponent?: Component
   extraTitle?: string
+  extraDescription?: string
 }
 
 const props = defineProps<{
@@ -156,6 +157,7 @@ onMounted(async () => {
             <GuideModuleDialog
               v-if="activeStep?.extraComponent"
               :title="activeStep?.extraTitle ?? 'Дополнительная информация'"
+              :description="activeStep?.extraDescription ?? ''"
               :component="activeStep.extraComponent"
             />
           </div>

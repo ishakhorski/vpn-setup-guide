@@ -23,6 +23,7 @@ import IconInfo from '@/components/icons/info.svg'
 
 const props = defineProps<{
   title: string
+  description: string
   component: Component
 }>()
 </script>
@@ -41,7 +42,7 @@ const props = defineProps<{
           {{ props.title }}
         </BaseDialogTitle>
         <BaseDialogDescription>
-          {{ props.title }}
+          {{ props.description }}
         </BaseDialogDescription>
       </BaseDialogHeader>
       <div class="prose">
@@ -63,7 +64,7 @@ const props = defineProps<{
           {{ props.title }}
         </BaseSheetTitle>
         <BaseSheetDescription class="text-left">
-          {{ props.title }}
+          {{ props.description }}
         </BaseSheetDescription>
       </BaseSheetHeader>
       <div class="prose">

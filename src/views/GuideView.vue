@@ -22,6 +22,7 @@ type MarkdownModule = {
 type ExtraModule = {
   default: Component
   title: string
+  description: string
   step: number
 }
 
@@ -50,9 +51,9 @@ const extrasMap: Record<string, Record<string, ExtraModule>> = {
 }
 
 function buildExtrasLookup(modules: Record<string, ExtraModule>) {
-  const map = new Map<number, { component: Component; title: string }>()
+  const map = new Map<number, { component: Component; title: string; description: string }>()
   for (const mod of Object.values(modules)) {
-    map.set(mod.step, { component: mod.default, title: mod.title })
+    map.set(mod.step, { component: mod.default, title: mod.title, description: mod.description })
   }
   return map
 }
@@ -71,7 +72,7 @@ const steps = computed(() => {
   const extras = buildExtrasLookup(extrasMap[platform.value] ?? {})
   return baseSteps.map((step) => {
     const extra = extras.get(step.order)
-    return extra ? { ...step, extraComponent: extra.component, extraTitle: extra.title } : step
+    return extra ? { ...step, extraComponent: extra.component, extraTitle: extra.title, extraDescription: extra.description } : step
   })
 })
 
