@@ -1,0 +1,20 @@
+{
+  "version": "CIS_V1",
+  "routingItems": [
+    {
+      "remarks": "DirectAndFilterProxy",
+      "domainStrategy": "Asis",
+      "url": "https://panda.arreis.ru/rules/cis/directandfilterproxy.json"
+    },
+    {
+      "remarks": "ProxyButCIS",
+      "domainStrategy": "Asis",
+      "url": "https://panda.arreis.ru/rules/cis/proxybutcis.json"
+    },
+    {
+      "remarks": "ProxyAll",
+      "domainStrategy": "Asis",
+      "url": "https://panda.arreis.ru/rules/cis/proxyall.json"
+    }
+  ]
+}

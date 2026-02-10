@@ -1,0 +1,325 @@
+[
+  {
+    "network": "tcp,udp",
+    "inboundTag": [
+      "socks",
+      "socks2",
+      "socks3"
+    ],
+    "outboundTag": "proxy",
+    "domain": [
+      "geosite:CATEGORY-PORN"
+    ],
+    "protocol": [
+      "http",
+      "tls"
+    ],
+    "enabled": true,
+    "remarks": "CUSTOM - Proxy"
+  },
+  {
+    "network": "tcp,udp",
+    "inboundTag": [
+      "socks",
+      "socks2",
+      "socks3"
+    ],
+    "outboundTag": "proxy",
+    "domain": [
+      "geosite:CATEGORY-DEV",
+      "domain:vsassets.io",
+      "domain:download.pytorch.org",
+      "domain:pytorch.org"
+    ],
+    "protocol": [
+      "http",
+      "tls"
+    ],
+    "enabled": true,
+    "remarks": "Dev - Proxy"
+  },
+  {
+    "network": "tcp,udp",
+    "inboundTag": [
+      "socks",
+      "socks2",
+      "socks3"
+    ],
+    "outboundTag": "proxy",
+    "domain": [
+      "geosite:nvidia"
+    ],
+    "protocol": [
+      "http",
+      "tls"
+    ],
+    "enabled": true,
+    "remarks": "Nvidia - Proxy"
+  },
+  {
+    "network": "tcp,udp",
+    "inboundTag": [
+      "socks",
+      "socks2",
+      "socks3"
+    ],
+    "outboundTag": "proxy",
+    "domain": [
+      "domain:download.microsoft.com"
+    ],
+    "protocol": [
+      "http",
+      "tls"
+    ],
+    "enabled": true,
+    "remarks": "Microsoft - proxy"
+  },
+  {
+    "network": "tcp,udp",
+    "inboundTag": [
+      "socks",
+      "socks2",
+      "socks3"
+    ],
+    "outboundTag": "proxy",
+    "domain": [
+      "geosite:adobe"
+    ],
+    "protocol": [
+      "http",
+      "tls"
+    ],
+    "enabled": true,
+    "remarks": "Adobe - Proxy"
+  },
+  {
+    "network": "tcp,udp",
+    "inboundTag": [
+      "socks",
+      "socks2",
+      "socks3"
+    ],
+    "outboundTag": "proxy",
+    "domain": [
+      "geosite:linguee"
+    ],
+    "protocol": [
+      "http",
+      "tls"
+    ],
+    "enabled": true,
+    "remarks": "DeppL - Proxy"
+  },
+  {
+    "network": "tcp,udp",
+    "inboundTag": [
+      "socks",
+      "socks2",
+      "socks3"
+    ],
+    "outboundTag": "proxy",
+    "domain": [
+      "geosite:github",
+      "domain:githubcopilot.com"
+    ],
+    "protocol": [
+      "http",
+      "tls"
+    ],
+    "enabled": true,
+    "remarks": "Github - Proxy"
+  },
+  {
+    "network": "tcp,udp",
+    "inboundTag": [
+      "socks",
+      "socks2",
+      "socks3"
+    ],
+    "outboundTag": "proxy",
+    "domain": [
+      "geosite:epicgames"
+    ],
+    "protocol": [
+      "http",
+      "tls"
+    ],
+    "enabled": true,
+    "remarks": "Epicgames - proxy"
+  },
+  {
+    "network": "tcp,udp",
+    "inboundTag": [
+      "socks",
+      "socks2",
+      "socks3"
+    ],
+    "outboundTag": "proxy",
+    "domain": [
+      "geosite:sourceforge"
+    ],
+    "protocol": [
+      "http",
+      "tls"
+    ],
+    "enabled": true,
+    "remarks": "Sourceforge - Proxy"
+  },
+  {
+    "network": "tcp,udp",
+    "inboundTag": [
+      "socks",
+      "socks2",
+      "socks3"
+    ],
+    "outboundTag": "proxy",
+    "domain": [
+      "geosite:jetbrains",
+      "geosite:jetbrains-ai",
+      "domain:jetbrains.com"
+    ],
+    "protocol": [
+      "http",
+      "tls"
+    ],
+    "enabled": true,
+    "remarks": "Jetbrains - Proxy"
+  },
+  {
+    "network": "tcp,udp",
+    "inboundTag": [
+      "socks",
+      "socks2",
+      "socks3"
+    ],
+    "outboundTag": "proxy",
+    "domain": [
+      "geosite:category-ai-!cn",
+      "domain:openai.com"
+    ],
+    "protocol": [
+      "http",
+      "tls"
+    ],
+    "enabled": true,
+    "remarks": "Category-AI - Proxy"
+  },
+  {
+    "network": "tcp,udp",
+    "inboundTag": [
+      "socks",
+      "socks2",
+      "socks3"
+    ],
+    "outboundTag": "proxy",
+    "domain": [
+      "geosite:intel"
+    ],
+    "protocol": [
+      "http",
+      "tls"
+    ],
+    "enabled": true,
+    "remarks": "Intel - Proxy"
+  },
+  {
+    "network": "tcp,udp",
+    "inboundTag": [
+      "socks",
+      "socks2",
+      "socks3"
+    ],
+    "outboundTag": "proxy",
+    "domain": [
+      "domain:habr.com"
+    ],
+    "protocol": [
+      "http",
+      "tls"
+    ],
+    "enabled": true,
+    "remarks": "Habr - Proxy"
+  },
+  {
+    "network": "tcp,udp",
+    "inboundTag": [
+      "socks",
+      "socks2",
+      "socks3"
+    ],
+    "outboundTag": "proxy",
+    "domain": [
+      "geosite:apple"
+    ],
+    "protocol": [
+      "http",
+      "tls"
+    ],
+    "enabled": true,
+    "remarks": "Apple - Proxy"
+  },
+  {
+    "type": "field",
+    "network": "tcp,udp",
+    "inboundTag": [
+      "socks",
+      "socks2",
+      "socks3"
+    ],
+    "outboundTag": "direct",
+    "ip": [
+      "geoip:private"
+    ],
+    "protocol": [
+      "http",
+      "tls",
+      "bittorrent"
+    ],
+    "enabled": true,
+    "remarks": "Private - Direct"
+  },
+  {
+    "network": "tcp,udp",
+    "inboundTag": [
+      "socks",
+      "socks2",
+      "socks3"
+    ],
+    "outboundTag": "direct",
+    "protocol": [
+      "bittorrent"
+    ],
+    "enabled": true,
+    "remarks": "BitTorrentDirect"
+  },
+  {
+    "network": "tcp,udp",
+    "inboundTag": [
+      "socks2"
+    ],
+    "outboundTag": "proxy",
+    "protocol": [
+      "http",
+      "tls"
+    ],
+    "enabled": true,
+    "remarks": "ProxyBrowser"
+  },
+  {
+    "network": "tcp,udp",
+    "inboundTag": [
+      "socks",
+      "socks3",
+      "socks2"
+    ],
+    "outboundTag": "direct",
+    "protocol": [
+      "http",
+      "tls",
+      "bittorrent"
+    ],
+    "enabled": true,
+    "remarks": "DirectAll",
+    "ruleType": 0
+  }
+]
