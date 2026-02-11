@@ -72,7 +72,14 @@ const steps = computed(() => {
   const extras = buildExtrasLookup(extrasMap[platform.value] ?? {})
   return baseSteps.map((step) => {
     const extra = extras.get(step.order)
-    return extra ? { ...step, extraComponent: extra.component, extraTitle: extra.title, extraDescription: extra.description } : step
+    return extra
+      ? {
+          ...step,
+          extraComponent: extra.component,
+          extraTitle: extra.title,
+          extraDescription: extra.description,
+        }
+      : step
   })
 })
 

@@ -6,7 +6,7 @@ order: 4
 
 ### После подключения убедитесь, что VPN работает:
 
-- Откройте <a href="https://2ip.ru" target="_blank">2ip.ru</a> или <a href="https://whatismyipaddress.com/" target="_blank">whatismyipaddress.com</a> — ваш IP-адрес и страна должны измениться 
+- Откройте <a href="https://2ip.ru" target="_blank">2ip.ru</a> или <a href="https://whatismyipaddress.com/" target="_blank">whatismyipaddress.com</a> — ваш IP-адрес и страна должны измениться
 - Попробуйте открыть ранее заблокированные ресурсы
 
 ### Проверка подключения в приложении

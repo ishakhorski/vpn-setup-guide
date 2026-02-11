@@ -27,7 +27,7 @@ import IconMessageQuestionMark from '@/components/icons/message-question-mark.sv
         <div class="md:text-center">
           <span class="text-base font-semibold md:text-lg lg:text-xl">Windows</span>
           <p class="text-xs text-muted-foreground md:mt-1.5 md:text-base">
-            v2rayN, Discord, UWP, SwitchyOmega
+            v2rayN, NekoRay, Hiddify
           </p>
         </div>
       </RouterLink>
@@ -44,7 +44,7 @@ import IconMessageQuestionMark from '@/components/icons/message-question-mark.sv
         <div class="md:text-center">
           <span class="text-base font-semibold md:text-lg lg:text-xl">Android</span>
           <p class="text-xs text-muted-foreground md:mt-1.5 md:text-base">
-            NekoBox, маршрутизация приложений
+            v2RayTun, NekoBox, v2rayNG, Hiddify
           </p>
         </div>
       </RouterLink>
@@ -61,7 +61,7 @@ import IconMessageQuestionMark from '@/components/icons/message-question-mark.sv
         <div class="md:text-center">
           <span class="text-base font-semibold md:text-lg lg:text-xl">macOS / iOS</span>
           <p class="text-xs text-muted-foreground md:mt-1.5 md:text-base">
-            V2Box для iPhone, iPad, Mac
+            V2Box, Streisand, Hiddify, Shadowrocket
           </p>
         </div>
       </RouterLink>
