@@ -67,7 +67,7 @@ import IconMessageQuestionMark from '@/components/icons/message-question-mark.sv
       </RouterLink>
     </div>
 
-    <RouterLink
+    <!-- <RouterLink
       to="/frequently-asked-questions"
       class="glass group flex w-full max-w-200 cursor-pointer items-center gap-3 rounded-xl p-3 text-muted-foreground outline-none transition-all duration-300 hover:border-primary/20 hover:text-primary hover:glass-hover focus-visible:ring-[3px] focus-visible:ring-ring/50 md:gap-4 md:p-4"
     >
@@ -82,6 +82,6 @@ import IconMessageQuestionMark from '@/components/icons/message-question-mark.sv
           Проблемы с установкой и настройкой VPN
         </p>
       </div>
-    </RouterLink>
+    </RouterLink> -->
   </div>
 </template>
