@@ -100,7 +100,7 @@ const currentStep = useRouteQuery('step', '1', { transform: Number, mode: 'repla
     />
 
     <!-- FAQ link (always visible) -->
-    <div class="flex justify-center border-t border-border pt-3 md:pt-4 lg:pt-6">
+    <!-- <div class="flex justify-center border-t border-border pt-3 md:pt-4 lg:pt-6">
       <RouterLink
         to="/frequently-asked-questions"
         class="text-xs text-muted-foreground rounded-md outline-none transition-colors hover:text-primary focus-visible:ring-[3px] focus-visible:ring-ring/50 md:text-sm"
@@ -108,6 +108,6 @@ const currentStep = useRouteQuery('step', '1', { transform: Number, mode: 'repla
         Остались вопросы?
         <span class="font-medium underline underline-offset-4">Перейти к вопросам на ответы</span>
       </RouterLink>
-    </div>
+    </div> -->
   </div>
 </template>
